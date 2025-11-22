@@ -15,10 +15,12 @@
 		9914AE4C2ED1AF9A0003EFD8 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE4B2ED1AF9A0003EFD8 /* RxSwift */; };
 		9914AE4F2ED1AFA50003EFD8 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE4E2ED1AFA50003EFD8 /* ReactorKit */; };
 		9914AEB12ED1B1E70003EFD8 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AEB02ED1B1E70003EFD8 /* KakaoSDK */; };
+		994296A02ED21AD7001A7445 /* LinkerThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9942969F2ED21AD7001A7445 /* LinkerThirdViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		897DBDD62ED1A07000457C9B /* Ne-O-rdinary_best-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ne-O-rdinary_best-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9942969F2ED21AD7001A7445 /* LinkerThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkerThirdViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -69,6 +71,7 @@
 		897DBDCD2ED1A07000457C9B = {
 			isa = PBXGroup;
 			children = (
+				9942969F2ED21AD7001A7445 /* LinkerThirdViewController.swift */,
 				897DBDD82ED1A07000457C9B /* Ne-O-rdinary_best-iOS */,
 				897DBDD72ED1A07000457C9B /* Products */,
 			);
@@ -172,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				994296A02ED21AD7001A7445 /* LinkerThirdViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

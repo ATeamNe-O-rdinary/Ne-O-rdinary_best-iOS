@@ -1,5 +1,5 @@
 //
-//  LinkerFirstViewController.swift
+//  LinkerThirdViewController.swift
 //  Ne-O-rdinary_best-iOS
 //
 //  Created by 지상률 on 11/23/25.
@@ -10,13 +10,13 @@ import UIKit
 import Then
 import SnapKit
 
-final class LinkerFirstViewController: UIViewController {
+final class LinkerThirdViewController: UIViewController {
     
     var coordinator: LoginCoordinator?
     
     private enum Strings {
-        static let main = "뉴 링커님,\n어떻게 불리면 좋을까요?"
-        static let sub = "이름을 입력해주세요"
+        static let main = "뉴 링커님,\n당신을 한 줄로 표현한다면?"
+        static let sub = "한줄 소개를 입력해주세요"
     }
     
     private let titleLabel = UILabel().then {
@@ -80,6 +80,7 @@ final class LinkerFirstViewController: UIViewController {
     
     @objc
     func nextTo() {
-        coordinator?.nextToLinkerSecond()
+//        coordinator?.nextToLinkerSecond()
     }
+    
 }
