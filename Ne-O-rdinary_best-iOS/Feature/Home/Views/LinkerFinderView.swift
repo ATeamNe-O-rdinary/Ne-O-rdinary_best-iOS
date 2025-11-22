@@ -61,6 +61,6 @@ struct LinkerFinderView: View {
     }
     .padding(.horizontal, 26)
     .padding(.top, 12)
-    .padding(.bottom, 80)
+    .padding(.bottom, 40)
   }
 }
