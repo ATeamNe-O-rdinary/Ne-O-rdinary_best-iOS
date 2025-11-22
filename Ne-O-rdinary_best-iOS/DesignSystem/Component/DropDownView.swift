@@ -24,7 +24,6 @@ class CustomDropdown: UIView {
         $0.layer.cornerRadius = 8
         $0.clipsToBounds = true
         $0.isHidden = true
-        $0.isScrollEnabled = false
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor(hexString: "#EAECEE").cgColor
     }

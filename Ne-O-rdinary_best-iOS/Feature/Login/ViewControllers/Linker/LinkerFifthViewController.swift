@@ -124,7 +124,7 @@ final class LinkerFifthViewController: UIViewController {
     
     @objc
     func nextTo() {
-        coordinator?.nextToLinkerFourth()
+        coordinator?.nextToLinkerSixth()
     }
     
 }
