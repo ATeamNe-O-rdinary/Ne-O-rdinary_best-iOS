@@ -3,104 +3,117 @@ import SwiftUI
 struct MyProfileView: View {
   @State private var showDialog = false   // 👈 추가
   @State private var showMessageDialog = false   // 👈 추가
-  
+  let navigateToLinkedCompanies: () -> Void
+  let navigateToMatchedLinkos: () -> Void
+  let navigateToLinkTalk: () -> Void
+
   var body: some View {
-    VStack {
-      Text("링크팅")
-        .font(.pretendard(16, .semibold))
-        .foregroundColor(.black)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 26)
-      
-      ScrollView(showsIndicators: false) {
-        VStack(alignment: .leading, spacing: 28) {
-          // MARK: - 1) 상단 인사/소개 텍스트
-          VStack(spacing: 52) {
-            VStack(spacing: 38) {
-              VStack(spacing: 12) {
-                HStack(spacing: 4) {
-                  Image(R.Images.myImage)
-                  
-                  Text("스타트업 근무 중인 프론트엔드 개발자입니다.")
-                    .font(.pretendard(16, .semibold))
-                    .foregroundColor(Color(hex: "414245"))
-                    .frame(maxWidth: .infinity)
-                }
+    ScrollView(showsIndicators: false) {
+      VStack(alignment: .leading, spacing: 28) {
+        // MARK: - 1) 상단 인사/소개 텍스트
+        VStack(spacing: 52) {
+          VStack(spacing: 38) {
+            VStack(spacing: 12) {
+              HStack(spacing: 4) {
+                Image(R.Images.myImage)
                 
-                // MARK: - 2) 프로필 카드
-                profileCard
+                Text("스타트업 근무 중인 프론트엔드 개발자입니다.")
+                  .font(.pretendard(16, .semibold))
+                  .foregroundColor(Color(hex: "414245"))
+                  .frame(maxWidth: .infinity)
               }
-              .padding(.horizontal, 26)
               
-              HStack {
-                VStack(spacing: 26) {
-                  Circle()
-                    .frame(width: 43, height: 43)
-                  Text("링크한 기업")
-                    .font(.pretendard(14, .medium))
-                    .foregroundStyle(Color.black)
-                }
-                Spacer()
-                VStack(spacing: 26) {
-                  Circle()
-                    .frame(width: 43, height: 43)
-                  Text("링크한 기업")
-                    .font(.pretendard(14, .medium))
-                    .foregroundStyle(Color.black)
-                }
-                Spacer()
-                VStack(spacing: 26) {
-                  Circle()
-                    .frame(width: 43, height: 43)
-                  Text("링크한 기업")
-                    .font(.pretendard(14, .medium))
-                    .foregroundStyle(Color.black)
-                }
-              }
-              .padding(.horizontal, 20)
-            }
-            .frame(maxWidth: .infinity)
-            
-            Divider()
-              .overlay {
-                Color(hex: "EAECEE")
-                  .frame(height: 8)
-              }
-          }
-          
-          // MARK: - 4) "나를 선택한 기업" 섹션 타이틀
-          VStack(spacing: 12) {
-            VStack(alignment: .leading, spacing: 20) {
-              Text("나를 선택한 기업")
-                .font(.pretendard(18, .semibold))
-                .foregroundColor(.black)
-              
-              HStack {
-                VStack(alignment: .leading, spacing: 8) {
-                  Text("나에게 관심을 보이는 기업에게 회신하기")
-                    .font(.pretendard(15, .semibold))
-                    .foregroundColor(Color(hex: "333333"))
-                  Text("응답하면 매칭율이 높아져요!")
-                    .font(.pretendard(12, .medium))
-                    .foregroundColor(Color(hex: "777980"))
-                }
-                Spacer()
-                Image(R.Images.mail)
-              }
-              .padding(.leading, 16)
-              .background(Color(hex: "F1F1F2"))
-              .clipShape(.rect(cornerRadius: 12))
+              // MARK: - 2) 프로필 카드
+              profileCard
             }
             .padding(.horizontal, 26)
             
-            // MARK: - 5) 기업 카드 두 개
-            companyCards
+            HStack {
+              Button {
+                navigateToLinkedCompanies()
+              } label: {
+                VStack(spacing: 26) {
+                  Circle()
+                    .frame(width: 43, height: 43)
+                  Text("링크한 기업")
+                    .font(.pretendard(14, .medium))
+                    .foregroundStyle(Color.black)
+                }
+              }
+              
+              Spacer()
+              
+              Button {
+                navigateToMatchedLinkos()
+              } label: {
+                VStack(spacing: 26) {
+                  Circle()
+                    .frame(width: 43, height: 43)
+                  Text("매칭된 링오")
+                    .font(.pretendard(14, .medium))
+                    .foregroundStyle(Color.black)
+                }
+              }
+              
+              Spacer()
+              
+              Button {
+                navigateToLinkTalk()
+              } label: {
+                VStack(spacing: 26) {
+                  Circle()
+                    .frame(width: 43, height: 43)
+                  Text("링크톡")
+                    .font(.pretendard(14, .medium))
+                    .foregroundStyle(Color.black)
+                }
+              }
+              
+            }
+            .padding(.horizontal, 40)
           }
+          .frame(maxWidth: .infinity)
+          
+          Divider()
+            .overlay {
+              Color(hex: "EAECEE")
+                .frame(height: 8)
+            }
         }
-        .padding(.bottom, 20)
-        .background(Color.white)
+        
+        // MARK: - 4) "나를 선택한 기업" 섹션 타이틀
+        VStack(spacing: 12) {
+          VStack(alignment: .leading, spacing: 20) {
+            Text("나를 선택한 기업")
+              .font(.pretendard(18, .semibold))
+              .foregroundColor(.black)
+            
+            HStack {
+              VStack(alignment: .leading, spacing: 8) {
+                Text("나에게 관심을 보이는 기업에게 회신하기")
+                  .font(.pretendard(15, .semibold))
+                  .foregroundColor(Color(hex: "333333"))
+                Text("응답하면 매칭율이 높아져요!")
+                  .font(.pretendard(12, .medium))
+                  .foregroundColor(Color(hex: "777980"))
+              }
+              Spacer()
+              Image(R.Images.mail)
+            }
+            .padding(.leading, 16)
+            .background(Color(hex: "F1F1F2"))
+            .clipShape(.rect(cornerRadius: 12))
+          }
+          .padding(.horizontal, 26)
+          
+          // MARK: - 5) 기업 카드 두 개
+          companyCards
+        }
       }
+      .padding(.bottom, 20)
+      .background(Color.white)
     }
+    .padding(.top, 20)
     .fullScreenCover(isPresented: $showDialog) {
       LinkerDialog(
         onClose: { showDialog = false },
@@ -295,10 +308,6 @@ struct MyProfileView: View {
     .frame(width: 172, height: 230)
     .clipShape(RoundedRectangle(cornerRadius: 12))
   }
-}
-
-#Preview {
-  MyProfileView()
 }
 
 struct BackgroundBlurView: UIViewRepresentable {
