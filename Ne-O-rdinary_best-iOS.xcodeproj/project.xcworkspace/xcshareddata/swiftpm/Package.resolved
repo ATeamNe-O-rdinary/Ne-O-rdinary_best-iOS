@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "originHash" : "760d20e54279b6f154e80726a91ba81eeaaad58e99d5de36ae6e6581e36c7b49",
+=======
+  "originHash" : "eddf6c2bc998ad8d721abde64e08dfcb7902a24be61fb1852d2531fa17895bb0",
+>>>>>>> develop
   "pins" : [
     {
       "identity" : "alamofire",

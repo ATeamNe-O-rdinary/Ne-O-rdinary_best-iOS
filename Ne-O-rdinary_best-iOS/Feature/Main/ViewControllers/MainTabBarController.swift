@@ -15,15 +15,14 @@ final class MainTabBarController: UITabBarController {
     
     private func setupViews() {
         let firstVC = HomeViewController()
-        let secondVC = CommunityViewController()
         let thirdVC = MyProfileViewController()
         firstVC.tabBarItem = UITabBarItem(title: "홈", image: UIImage(systemName: "house.fill"), tag: 0)
-        secondVC.tabBarItem = UITabBarItem(title: "커뮤니티", image: UIImage(systemName: "book.fill"), tag: 1)
         thirdVC.tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(systemName: "person.fill"), tag: 2)
         
-        self.viewControllers = [firstVC, secondVC, thirdVC]
+        let tabs = [firstVC, thirdVC]
+        self.viewControllers = tabs
         self.tabBar.backgroundColor = .white
         self.tabBar.tintColor = .orange
-    
+        setViewControllers(tabs.map { UINavigationController(rootViewController: $0) } , animated: false)
     }
 }
