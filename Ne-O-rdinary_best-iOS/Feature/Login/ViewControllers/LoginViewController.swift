@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
         $0.layer.cornerRadius = 8
         $0.clipsToBounds = true
         $0.setImage(R.Images.$kakao, for: .normal)
-        $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)  // 이미지와 텍스트 간격
+        $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
         $0.contentHorizontalAlignment = .center
     }
     
@@ -48,12 +48,12 @@ class LoginViewController: UIViewController {
     
     @objc func kakaoLoginButtonTapped() {
         
-//        if UserApi.isKakaoTalkLoginAvailable() {
-//            loginWithKakaoTalk()
-//        } else {
-//            loginWithKakaoWeb()
-//        }
-        coordinator?.nextToPage1()
+        if UserApi.isKakaoTalkLoginAvailable() {
+            loginWithKakaoTalk()
+        } else {
+            loginWithKakaoWeb()
+        }
+//        coordinator?.nextToPage1()
     }
     
     func setupUI() {
@@ -108,6 +108,13 @@ extension LoginViewController {
                 //                  self?.showAlert(title: "로그인 실패", message: "카카오 웹 로그인에 실패했습니다.")
             } else {
                 Logger.d("카카오 웹 로그인 성공")
+                if let refreshToken = oauthToken?.refreshToken {
+                    
+                }
+                
+                
+                Logger.d("\(oauthToken?.accessToken)")
+                Logger.d("\(oauthToken?.refreshToken)")
                 //                  self?.fetchUserInfo()
             }
         }
