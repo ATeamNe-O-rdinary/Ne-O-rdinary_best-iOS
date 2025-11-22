@@ -11,7 +11,9 @@ struct HomeRootView: View {
   @StateObject var homeViewModel: HomeViewModel = HomeViewModel()
   
   var body: some View {
-    VStack {
+    VStack(spacing: 12) {
+      InterestHeader()
+      
       ZStack {
         if let users = homeViewModel.displayingUsers {
           if users.isEmpty {
@@ -28,11 +30,11 @@ struct HomeRootView: View {
           ProgressView()
         }
       }
-      .padding(.top, 30)
-      .padding()
-      .padding(.vertical)
       .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+    .padding(.horizontal, 26)
+    .padding(.top, 12)
+    .padding(.bottom, 40)
   }
 }
 
