@@ -28,6 +28,9 @@ extension R {
       
       @R_Image
       static var mail = "mail"
+      
+      @R_Image
+      static var myImage = "my_image"
     }
 }
 
