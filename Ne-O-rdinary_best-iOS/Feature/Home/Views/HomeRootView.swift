@@ -15,70 +15,23 @@ struct HomeRootView: View {
       ZStack {
         if let users = homeViewModel.displayingUsers {
           if users.isEmpty {
-            Text("없음")
+            Text("정보가 없습니다")
+              .font(.caption)
               .foregroundStyle(.black)
           } else {
-            ForEach(users) { user in
+            ForEach(users.reversed()) { user in
               StackCardView(user: user)
                 .environmentObject(homeViewModel)
             }
           }
+        } else {
+          ProgressView()
         }
       }
       .padding(.top, 30)
       .padding()
       .padding(.vertical)
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-      
-      HStack(spacing: 15) {
-        Button {
-          
-        } label: {
-          Image(systemName: "arrow.uturn.backward")
-            .font(.system(size: 15, weight: .bold))
-            .foregroundStyle(.white)
-            .shadow(radius: 5)
-            .padding(13)
-            .background(.gray)
-            .clipShape(Circle())
-        }
-        
-        Button {
-          
-        } label: {
-          Image(systemName: "xmark")
-            .font(.system(size: 15, weight: .bold))
-            .foregroundStyle(.white)
-            .shadow(radius: 5)
-            .padding(13)
-            .background(.gray)
-            .clipShape(Circle())
-        }
-        
-        Button {
-          
-        } label: {
-          Image(systemName: "star.fill")
-            .font(.system(size: 15, weight: .bold))
-            .foregroundStyle(.white)
-            .shadow(radius: 5)
-            .padding(13)
-            .background(.gray)
-            .clipShape(Circle())
-        }
-        
-        Button {
-          
-        } label: {
-          Image(systemName: "suit.heart.fill")
-            .font(.system(size: 15, weight: .bold))
-            .foregroundStyle(.white)
-            .shadow(radius: 5)
-            .padding(13)
-            .background(.gray)
-            .clipShape(Circle())
-        }
-      }
     }
   }
 }
