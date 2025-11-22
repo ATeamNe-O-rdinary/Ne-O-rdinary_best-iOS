@@ -32,9 +32,9 @@ struct MyProfileView: View {
               Button {
                 navigateToLinkedCompanies()
               } label: {
-                VStack(spacing: 26) {
-                  Circle()
-                    .frame(width: 43, height: 43)
+                VStack(spacing: 8) {
+                  Image(R.Images.linkCompany)
+                    .frame(width: 60, height: 60)
                   Text("링크한 기업")
                     .font(.pretendard(14, .medium))
                     .foregroundStyle(Color.black)
@@ -46,9 +46,9 @@ struct MyProfileView: View {
               Button {
                 navigateToMatchedLinkos()
               } label: {
-                VStack(spacing: 26) {
-                  Circle()
-                    .frame(width: 43, height: 43)
+                VStack(spacing: 8) {
+                  Image(R.Images.linko)
+                    .frame(width: 60, height: 60)
                   Text("매칭된 링오")
                     .font(.pretendard(14, .medium))
                     .foregroundStyle(Color.black)
@@ -60,9 +60,9 @@ struct MyProfileView: View {
               Button {
                 navigateToLinkTalk()
               } label: {
-                VStack(spacing: 26) {
-                  Circle()
-                    .frame(width: 43, height: 43)
+                VStack(spacing: 8) {
+                  Image(R.Images.linkTalk)
+                    .frame(width: 60, height: 60)
                   Text("링크톡")
                     .font(.pretendard(14, .medium))
                     .foregroundStyle(Color.black)
