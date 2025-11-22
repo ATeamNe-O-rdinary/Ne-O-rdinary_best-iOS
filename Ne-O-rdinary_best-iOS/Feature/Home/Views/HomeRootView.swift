@@ -12,7 +12,35 @@ struct HomeRootView: View {
   
   var body: some View {
     VStack(spacing: 12) {
-      InterestHeader()
+      if !true {
+        InterestHeader()
+      } else {
+        HStack(spacing: 20) {
+          Text("아직 로그인하지 않았어요😢")
+          Button(action: {}) {
+            Text("로그인 하기")
+              .font(.system(size: 13))
+              .foregroundColor(.black)
+              .padding(.vertical, 9)
+              .padding(.horizontal, 16)
+              .background(
+                RoundedRectangle(cornerRadius: 8)
+                  .fill(Color.white)
+                  .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                      .stroke(Color(.systemGray4), lineWidth: 1)
+                  )
+              )
+          }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .padding(.horizontal, 16)
+        .background(
+          RoundedRectangle(cornerRadius: 8)
+            .fill(Color(.systemGray6))
+        )
+      }
       
       ZStack {
         if let users = homeViewModel.displayingUsers {
