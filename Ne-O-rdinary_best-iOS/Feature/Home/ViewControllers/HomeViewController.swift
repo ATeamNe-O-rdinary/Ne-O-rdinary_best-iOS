@@ -10,7 +10,7 @@ import SwiftUI
 import Then
 import SnapKit
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     private lazy var pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal).then {
 //        $0.dataSource = self
         $0.delegate = self

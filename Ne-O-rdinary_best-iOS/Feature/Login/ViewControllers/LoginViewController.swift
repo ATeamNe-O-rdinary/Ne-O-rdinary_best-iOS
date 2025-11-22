@@ -44,11 +44,13 @@ class LoginViewController: UIViewController {
     }
     
     @objc func kakaoLoginButtonTapped() {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            loginWithKakaoTalk()
-        } else {
-            loginWithKakaoWeb()
-        }
+        
+//        if UserApi.isKakaoTalkLoginAvailable() {
+//            loginWithKakaoTalk()
+//        } else {
+//            loginWithKakaoWeb()
+//        }
+        coordinator?.nextToPage1()
     }
     
     func setupUI() {

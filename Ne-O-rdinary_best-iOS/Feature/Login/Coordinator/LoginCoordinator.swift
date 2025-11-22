@@ -29,9 +29,14 @@ class LoginCoordinator: NSObject, UINavigationControllerDelegate {
         navigationController.viewControllers = [loginStartVC]
     }
     
+    func nextToPage1() {
+        let vc = LoginSelect1ViewController()
+        vc.coordinator = self
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
     func finishLogin() {
-//        UserDefaults.standard.set(true, forKey: "isLoggedIn")
+        //        UserDefaults.standard.set(true, forKey: "isLoggedIn")
         delegate?.loginCoordinatorDidFinish(self)
     }
 }
-
