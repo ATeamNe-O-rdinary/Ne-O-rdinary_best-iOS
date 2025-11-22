@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeRootView: View {
+struct LinkerFinderView: View {
   @StateObject var homeViewModel: HomeViewModel = HomeViewModel()
   
   var body: some View {
@@ -63,8 +63,4 @@ struct HomeRootView: View {
     .padding(.top, 12)
     .padding(.bottom, 80)
   }
-}
-
-#Preview {
-  HomeRootView()
 }

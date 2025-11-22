@@ -11,9 +11,9 @@ import SnapKit
 
 final class LinkerFinderViewController: UIViewController {
     
-    private let swiftUIView = HomeRootView()
+    private let swiftUIView = LinkerFinderView()
     
-    private var hostingController: UIHostingController<HomeRootView>?
+    private var hostingController: UIHostingController<LinkerFinderView>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
