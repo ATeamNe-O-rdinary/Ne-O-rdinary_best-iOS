@@ -1,10 +1,3 @@
-//
-//  LinkerSeventhViewController.swift
-//  Ne-O-rdinary_best-iOS
-//
-//  Created by 지상률 on 11/23/25.
-//
-
 import UIKit
 import Then
 import SnapKit
@@ -14,6 +7,8 @@ final class LinkerSeventhViewController: UIViewController {
     private enum Strings {
         static let title = "사용 가능한 툴과\n기술 스택을 선택해주세요"
     }
+    
+    private let viewModel = SharedLinkerViewModel.shared
     
     private let titleLabel = UILabel().then {
         $0.text = Strings.title
@@ -35,15 +30,9 @@ final class LinkerSeventhViewController: UIViewController {
         $0.register(SelectableCollectionViewCell.self, forCellWithReuseIdentifier: "SelectableCell")
     }
     
-    private var items: [String] = [
-        "Swift",
-        "Kotlin",
-        "Java",
-        "Flutter",
-        "React Native",
-        "Node.js",
-        "Python(Django/FastAPI)",
-        "Spring(Java)"
+    private let techStacks: [TechStack] = [
+        .swift, .kotlin, .java, .flutter,
+        .reactNative, .nodeJS, .pythonDjangoFastAPI, .springJava
     ]
     
     private let nextButton = UIButton().then {
@@ -53,6 +42,8 @@ final class LinkerSeventhViewController: UIViewController {
         $0.titleLabel?.font = UIFont.pretendard(size: 16, weight: .medium)
         $0.layer.cornerRadius = 8
         $0.clipsToBounds = true
+        $0.isEnabled = false
+        $0.alpha = 0.5
     }
     
     private var selectedIndices: Set<Int> = []
@@ -64,11 +55,38 @@ final class LinkerSeventhViewController: UIViewController {
         setupUI()
         setupConstraints()
         setupActions()
+        setupViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+    }
+    
+    private func setupViewModel() {
+        viewModel.stateDidChange = { [weak self] state in
+            switch state {
+            case .idle:
+                break
+                
+            case .loading:
+                Logger.d("링커 정보 전송 중...")
+                self?.nextButton.isEnabled = false
+                self?.nextButton.alpha = 0.5
+                
+            case .success:
+                Logger.d("링커 정보 등록 성공!")
+                self?.nextButton.isEnabled = true
+                self?.nextButton.alpha = 1.0
+                self?.coordinator?.nextToLinkerLast()
+                
+            case .failure(let error):
+                Logger.e("등록 실패: \(error)")
+                self?.nextButton.isEnabled = true
+                self?.nextButton.alpha = 1.0
+                self?.showAlert(title: "오류", message: error)
+            }
+        }
     }
     
     func setupUI() {
@@ -98,9 +116,8 @@ final class LinkerSeventhViewController: UIViewController {
             make.top.equalTo(titleLabel.snp.bottom).offset(40)
             make.leading.equalToSuperview().offset(26)
             make.trailing.equalToSuperview().inset(26)
-            make.bottom.equalTo(nextButton.snp.top).offset(34)
+            make.bottom.equalTo(nextButton.snp.top).offset(-34)
         }
-        
     }
     
     func setupActions() {
@@ -108,14 +125,33 @@ final class LinkerSeventhViewController: UIViewController {
     }
     
     @objc private func nextButtonTap() {
-        coordinator?.nextToLinkerLast()
+        guard !selectedIndices.isEmpty else {
+            showAlert(title: "선택 필요", message: "최소 하나의 기술 스택을 선택해주세요")
+            return
+        }
+        
+        // 선택된 기술 스택을 enum 값으로 변환
+        let selectedTechStacks = selectedIndices.sorted().map { techStacks[$0].rawValue }
+        
+        // ViewModel에 데이터 저장
+        viewModel.setTechStacks(selectedTechStacks)
+        Logger.d("저장된 기술 스택: \(selectedTechStacks)")
+        
+        // POST 요청 전송
+        viewModel.submitUserData()
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension LinkerSeventhViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+        return techStacks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -125,12 +161,13 @@ extension LinkerSeventhViewController: UICollectionViewDataSource {
         ) as! SelectableCollectionViewCell
         
         let isSelected = selectedIndices.contains(indexPath.item)
-        cell.configure(with: items[indexPath.item], isSelected: isSelected)
+        cell.configure(with: techStacks[indexPath.item].description, isSelected: isSelected)
         
         return cell
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension LinkerSeventhViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
@@ -142,28 +179,38 @@ extension LinkerSeventhViewController: UICollectionViewDelegate {
         }
         
         collectionView.reloadItems(at: [indexPath])
+        updateButtonState()
         
-        let selectedItems = selectedIndices.sorted().map { items[$0] }
-        print("선택된 항목: \(selectedItems)")
+        let selectedItems = selectedIndices.sorted().map { techStacks[$0].description }
+        Logger.d("선택된 기술 스택: \(selectedItems)")
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension LinkerSeventhViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        let cell = SelectableCollectionViewCell()
-        let isSelected = selectedIndices.contains(indexPath.item)
-        cell.configure(with: items[indexPath.item], isSelected: isSelected)
-        let targetSize = CGSize(width: UIView.layoutFittingCompressedSize.width, height: 37)
-        let cellSize: CGSize = cell.contentView.systemLayoutSizeFitting(
-            targetSize,
-            withHorizontalFittingPriority: .fittingSizeLevel,
-            verticalFittingPriority: .required
-        )
-        Logger.d("\(cellSize)")
-        return cellSize
+        let text = techStacks[indexPath.item].description
+        let font = UIFont.pretendard(size: 16, weight: .regular)
+        
+        let textSize = text.size(withAttributes: [.font: font])
+        let width = textSize.width + 60  // 좌우 패딩 20pt씩
+        let height: CGFloat = 37  // 위아래 패딩 10pt씩
+        
+        return CGSize(width: width, height: height)
+    }
+}
+
+// MARK: - 버튼 상태 관리
+extension LinkerSeventhViewController {
+    private func updateButtonState() {
+        let hasSelection = !selectedIndices.isEmpty
+        nextButton.isEnabled = hasSelection
+        UIView.animate(withDuration: 0.2) {
+            self.nextButton.alpha = hasSelection ? 1.0 : 0.5
+        }
     }
 }

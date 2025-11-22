@@ -13,6 +13,9 @@ import SnapKit
 final class LinkerFifthViewController: UIViewController {
     
     var coordinator: LoginCoordinator?
+    private let viewModel = SharedLinkerViewModel.shared
+    
+    private var selectedRateUnit: RateUnit?
     
     private enum Strings {
         static let main = "희망하시는\n단가 범위를 알려주세요"
@@ -37,9 +40,6 @@ final class LinkerFifthViewController: UIViewController {
     private let dropView = CustomDropdown().then {
         $0.placeholder = "구분"
         $0.items = ["시급", "건수", "월별"]
-        $0.onSelectionChanged = { selectedValue in
-            Logger.d("선택: \(selectedValue)")
-        }
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor(hexString: "#EAECEE").cgColor
         $0.layer.cornerRadius = 12
@@ -63,6 +63,8 @@ final class LinkerFifthViewController: UIViewController {
         $0.titleLabel?.font = UIFont.pretendard(size: 16, weight: .medium)
         $0.layer.cornerRadius = 8
         $0.clipsToBounds = true
+        $0.isEnabled = false
+        $0.alpha = 0.5
     }
     
     override func viewDidLoad() {
@@ -70,6 +72,12 @@ final class LinkerFifthViewController: UIViewController {
         setupUI()
         setupConstraints()
         setupActions()
+        setupObservers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
     }
     
     func setupUI() {
@@ -89,10 +97,10 @@ final class LinkerFifthViewController: UIViewController {
             make.leading.equalToSuperview().offset(26)
         }
         
-        subTitleLabel.snp.makeConstraints( { make in
+        subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.leading.equalToSuperview().offset(26)
-        })
+        }
         
         stackView.snp.makeConstraints { make in
             make.top.equalTo(subTitleLabel.snp.bottom).offset(34)
@@ -120,11 +128,82 @@ final class LinkerFifthViewController: UIViewController {
     
     func setupActions() {
         nextButton.addTarget(self, action: #selector(nextTo), for: .touchUpInside)
+        
+        dropView.onSelectionChanged = { [weak self] selectedValue in
+            self?.handleRateUnitSelection(selectedValue)
+            self?.updateButtonState()
+        }
+    }
+    
+    private func setupObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(textFieldDidChange),
+            name: UITextField.textDidChangeNotification,
+            object: nil
+        )
+    }
+    
+    @objc
+    private func textFieldDidChange() {
+        updateButtonState()
+    }
+    
+    // MARK: - 레이트 단위 선택 처리
+    private func handleRateUnitSelection(_ selectedValue: String) {
+        switch selectedValue {
+        case "시급":
+            selectedRateUnit = .hourly
+        case "건수":
+            selectedRateUnit = .perCase
+        case "월별":
+            selectedRateUnit = .monthly
+        default:
+            selectedRateUnit = nil
+        }
+        
+        Logger.d("선택된 단가 유형: \(selectedRateUnit?.rawValue ?? "없음")")
+    }
+    
+    // MARK: - 버튼 활성화/비활성화
+    private func updateButtonState() {
+        guard let text = textField.text else { return }
+        let hasUnit = selectedRateUnit != nil
+        let hasAmount = !text.isEmpty
+        let isValid = hasUnit && hasAmount
+        
+        nextButton.isEnabled = isValid
+        UIView.animate(withDuration: 0.2) {
+            self.nextButton.alpha = isValid ? 1.0 : 0.5
+        }
     }
     
     @objc
     func nextTo() {
+        guard let selectedRateUnit = selectedRateUnit else {
+            showAlert(title: "선택 필요", message: "단가 유형을 선택해주세요")
+            return
+        }
+        
+        guard let amountText = textField.text, !amountText.isEmpty,
+              let amount = Int(amountText) else {
+            showAlert(title: "입력 필요", message: "유효한 금액을 입력해주세요")
+            return
+        }
+        
+        viewModel.setRateInfo(unit: selectedRateUnit.rawValue, amount: amount)
+        Logger.d("저장된 단가: \(selectedRateUnit.rawValue) - \(amount)")
+        
         coordinator?.nextToLinkerSixth()
     }
     
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }

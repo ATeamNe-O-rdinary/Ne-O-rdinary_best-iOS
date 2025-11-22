@@ -5,13 +5,6 @@
 //  Created by 지상률 on 11/22/25.
 //
 
-//
-//  LoginViewController.swift
-//  Ne-O-rdinary_best-iOS
-//
-//  Created by 지상률 on 11/22/25.
-//
-
 import Foundation
 import UIKit
 import Then
@@ -74,7 +67,8 @@ class LoginViewController: UIViewController {
                 if data.isNewUser {
                     self?.coordinator?.nextToPage1()
                 } else {
-                    self?.coordinator?.finishLogin()
+//                    self?.coordinator?.finishLogin()
+                    self?.coordinator?.nextToPage1()
                 }
                 
             case .failure(let error):

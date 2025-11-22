@@ -12,13 +12,14 @@ import SnapKit
 
 final class LinkerFourthViewController: UIViewController {
     
+    private let times: [WorkTimeType] = [.weekend, .weekdayEvening, .anytime]
     var coordinator: LoginCoordinator?
+    private let viewModel = SharedLinkerViewModel.shared
+    
+    private var selectedWorkTime: WorkTimeType?
     
     private enum Strings {
         static let title = "작업 가능 시간대를\n알려주세요"
-        static let junior = "주말"
-        static let middle = "당일 저녁"
-        static let senior = "상시 가능"
     }
     
     private let titleLabel = UILabel().then {
@@ -38,19 +39,16 @@ final class LinkerFourthViewController: UIViewController {
     private let juniorView = SelectableBorderView().then {
         $0.borderWidth = 1
         $0.cornerRadius = 12
-        $0.setTitle(Strings.junior)
     }
     
     private let middleView = SelectableBorderView().then {
         $0.borderWidth = 1
         $0.cornerRadius = 12
-        $0.setTitle(Strings.middle)
     }
     
     private let seniorView = SelectableBorderView().then {
         $0.borderWidth = 1
         $0.cornerRadius = 12
-        $0.setTitle(Strings.senior)
     }
     
     private let nextButton = UIButton().then {
@@ -60,6 +58,8 @@ final class LinkerFourthViewController: UIViewController {
         $0.titleLabel?.font = UIFont.pretendard(size: 16, weight: .medium)
         $0.layer.cornerRadius = 8
         $0.clipsToBounds = true
+        $0.isEnabled = false
+        $0.alpha = 0.5
     }
     
     override func viewDidLoad() {
@@ -69,7 +69,20 @@ final class LinkerFourthViewController: UIViewController {
         setupActions()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     func setupUI() {
+        juniorView.setTitle(times[0].description)
+        middleView.setTitle(times[1].description)
+        seniorView.setTitle(times[2].description)
         view.backgroundColor = .white
         view.addSubview(titleLabel)
         
@@ -128,6 +141,16 @@ final class LinkerFourthViewController: UIViewController {
     }
     
     @objc private func nextButtonTap() {
+        guard let selectedWorkTime = selectedWorkTime else {
+            showAlert(title: "선택 필요", message: "작업 가능 시간대를 선택해주세요")
+            return
+        }
+        
+        // ViewModel에 데이터 저장
+        viewModel.setWorkTimeType(selectedWorkTime.rawValue)
+        Logger.d("저장된 작업 시간: \(selectedWorkTime.rawValue)")
+        
+        // 다음 화면으로 이동
         coordinator?.nextToLinkerFifth()
     }
     
@@ -135,19 +158,41 @@ final class LinkerFourthViewController: UIViewController {
         juniorView.toggleSelection(animated: true)
         middleView.setSelected(false, animated: true)
         seniorView.setSelected(false, animated: true)
+        
+        selectedWorkTime = times[0]
+        updateButtonState()
     }
     
     @objc private func middleViewTapped() {
         juniorView.setSelected(false, animated: true)
         middleView.setSelected(true, animated: true)
         seniorView.setSelected(false, animated: true)
+        
+        selectedWorkTime = times[1]
+        updateButtonState()
     }
     
     @objc private func seniorViewTapped() {
         juniorView.setSelected(false, animated: true)
         middleView.setSelected(false, animated: true)
         seniorView.setSelected(true, animated: true)
+        
+        selectedWorkTime = times[2]
+        updateButtonState()
     }
-
+    
+    // MARK: - 버튼 활성화/비활성화
+    private func updateButtonState() {
+        let isSelected = selectedWorkTime != nil
+        nextButton.isEnabled = isSelected
+        UIView.animate(withDuration: 0.2) {
+            self.nextButton.alpha = isSelected ? 1.0 : 0.5
+        }
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
+    }
 }
-

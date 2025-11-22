@@ -13,6 +13,10 @@ import SnapKit
 final class LinkerSixthViewController: UIViewController {
     
     var coordinator: LoginCoordinator?
+    private let viewModel = SharedLinkerViewModel.shared
+    
+    private var selectedCollaborationType: CollaborationType?
+    private var selectedRegion: Region?
     
     private enum Strings {
         static let title = "온라인/오프라인\n어떤 협업을 원하시나요?"
@@ -46,32 +50,15 @@ final class LinkerSixthViewController: UIViewController {
         $0.setTitle(Strings.offline)
     }
     
+    private let regions: [Region] = [
+        .seoul, .gyeonggi, .incheon, .daejeon, .sejong,
+        .chungbuk, .chungnam, .gwangju, .jeonbuk, .jeonnam,
+        .daegu, .gyeongbuk, .busan, .ulsan, .gyeongnam,
+        .gangwon, .jeju, .anywhere
+    ]
+    
     private let dropView = CustomDropdown().then {
         $0.placeholder = "지역"
-        let regions: [String] = [
-            "서울",
-            "경기",
-            "인천",
-            "대전",
-            "세종",
-            "충남",
-            "충북",
-            "광주",
-            "전남",
-            "전북",
-            "대구",
-            "경북",
-            "부산",
-            "울산",
-            "경남",
-            "강원",
-            "제주",
-            "전국 무관"
-        ]
-        $0.items = regions
-        $0.onSelectionChanged = { selectedValue in
-            Logger.d("선택: \(selectedValue)")
-        }
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor(hexString: "#EAECEE").cgColor
         $0.layer.cornerRadius = 12
@@ -85,6 +72,8 @@ final class LinkerSixthViewController: UIViewController {
         $0.titleLabel?.font = UIFont.pretendard(size: 16, weight: .regular)
         $0.layer.cornerRadius = 8
         $0.clipsToBounds = true
+        $0.isEnabled = false
+        $0.alpha = 0.5
     }
     
     override func viewDidLoad() {
@@ -94,6 +83,16 @@ final class LinkerSixthViewController: UIViewController {
         setupActions()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     func setupUI() {
         view.backgroundColor = .white
         view.addSubview(titleLabel)
@@ -101,6 +100,9 @@ final class LinkerSixthViewController: UIViewController {
         stackView.addArrangedSubview(onlineView)
         stackView.addArrangedSubview(offlineView)
         view.addSubview(stackView)
+        
+        // 지역 드롭다운 아이템 설정
+        dropView.items = regions.map { $0.description }
         
         view.addSubview(dropView)
         view.addSubview(nextButton)
@@ -150,21 +152,92 @@ final class LinkerSixthViewController: UIViewController {
         offlineView.addGestureRecognizer(offlineTap)
         
         nextButton.addTarget(self, action: #selector(nextButtonTap), for: .touchUpInside)
-    }
-    
-    @objc private func nextButtonTap() {
-        coordinator?.nextToLinkerSeventh()
+        
+        // 지역 선택 감지
+        dropView.onSelectionChanged = { [weak self] selectedValue in
+            self?.handleRegionSelection(selectedValue)
+            self?.updateButtonState()
+        }
     }
     
     @objc private func onlineTapped() {
         onlineView.toggleSelection(animated: true)
         offlineView.setSelected(false, animated: true)
         dropView.isHidden = true
+        
+        selectedCollaborationType = .online
+        selectedRegion = nil  // 온라인일 경우 지역은 null
+        updateButtonState()
     }
     
     @objc private func offlineTapped() {
         onlineView.setSelected(false, animated: true)
         offlineView.setSelected(true, animated: true)
         dropView.isHidden = false
+        
+        selectedCollaborationType = .offline
+        updateButtonState()
+    }
+    
+    // MARK: - 지역 선택 처리
+    private func handleRegionSelection(_ selectedValue: String) {
+        selectedRegion = regions.first { $0.description == selectedValue }
+        Logger.d("선택된 지역: \(selectedRegion?.rawValue ?? "없음")")
+    }
+    
+    // MARK: - 버튼 활성화/비활성화
+    private func updateButtonState() {
+        var isValid = false
+        
+        if let collaborationType = selectedCollaborationType {
+            switch collaborationType {
+            case .online:
+                isValid = true
+            case .offline:
+                isValid = selectedRegion != nil
+            case .both:
+                isValid = selectedRegion != nil
+            }
+        }
+        
+        nextButton.isEnabled = isValid
+        UIView.animate(withDuration: 0.2) {
+            self.nextButton.alpha = isValid ? 1.0 : 0.5
+        }
+    }
+    
+    @objc private func nextButtonTap() {
+        guard let selectedCollaborationType = selectedCollaborationType else {
+            showAlert(title: "선택 필요", message: "협업 방식을 선택해주세요")
+            return
+        }
+        
+        if selectedCollaborationType == .offline {
+            guard selectedRegion != nil else {
+                showAlert(title: "선택 필요", message: "지역을 선택해주세요")
+                return
+            }
+        }
+        if let selectedRegion {
+            viewModel.setRegion(selectedRegion.rawValue)
+        } else {
+            viewModel.setRegion("SEOUL")
+        }
+        viewModel.setCollaborationType(selectedCollaborationType.rawValue)
+        
+        if selectedCollaborationType == .online {
+            Logger.d("협업 방식: \(selectedCollaborationType.rawValue), 지역: null")
+        } else if let region = selectedRegion {
+            viewModel.setRegion(region.rawValue)
+            Logger.d("협업 방식: \(selectedCollaborationType.rawValue), 지역: \(region.rawValue)")
+        }
+        
+        coordinator?.nextToLinkerSeventh()
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
     }
 }

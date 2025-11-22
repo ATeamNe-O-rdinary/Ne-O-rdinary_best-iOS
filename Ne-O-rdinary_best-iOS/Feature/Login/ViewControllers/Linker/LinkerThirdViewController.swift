@@ -13,6 +13,7 @@ import SnapKit
 final class LinkerThirdViewController: UIViewController {
     
     var coordinator: LoginCoordinator?
+    private let viewModel = SharedLinkerViewModel.shared
     
     private enum Strings {
         static let main = "뉴 링커님,\n당신을 한 줄로 표현한다면?"
@@ -37,6 +38,8 @@ final class LinkerThirdViewController: UIViewController {
         $0.titleLabel?.font = UIFont.pretendard(size: 16, weight: .medium)
         $0.layer.cornerRadius = 8
         $0.clipsToBounds = true
+        $0.isEnabled = false
+        $0.alpha = 0.5
     }
     
     override func viewDidLoad() {
@@ -44,6 +47,17 @@ final class LinkerThirdViewController: UIViewController {
         setupUI()
         setupConstraints()
         setupActions()
+        setupTextFieldObserver()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
     }
     
     func setupUI() {
@@ -78,9 +92,49 @@ final class LinkerThirdViewController: UIViewController {
         nextButton.addTarget(self, action: #selector(nextTo), for: .touchUpInside)
     }
     
+    // MARK: - 텍스트필드 입력 감지
+    private func setupTextFieldObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(textFieldDidChange),
+            name: UITextField.textDidChangeNotification,
+            object: nil
+        )
+    }
+    
+    @objc
+    private func textFieldDidChange() {
+        guard let text = textField.text else { return }
+        let hasText = !text.isEmpty
+        
+        nextButton.isEnabled = hasText
+        UIView.animate(withDuration: 0.2) {
+            self.nextButton.alpha = hasText ? 1.0 : 0.5
+        }
+    }
+    
     @objc
     func nextTo() {
+        guard let text = textField.text, !text.isEmpty else {
+            showAlert(title: "입력 필요", message: "닉네임을 입력해주세요")
+            return
+        }
+
+        // ViewModel에 데이터 저장
+        viewModel.setOneLineDescription(text)
+        Logger.d("저장된 한줄 소개: \(textField.text)")
+        
+        // 다음 화면으로 이동
         coordinator?.nextToLinkerFourth()
     }
     
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
