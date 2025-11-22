@@ -25,7 +25,6 @@
 		897DBDE82ED1A07200457C9B /* Exceptions for "Ne-O-rdinary_best-iOS" folder in "Ne-O-rdinary_best-iOS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Core/Networking/dummy.swift,
 				Domain/dummy.swift,
 				Feature/Community/dummy.swift,
 				Feature/Home/dummy.swift,
