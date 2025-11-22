@@ -36,6 +36,16 @@ final class MyProfileViewController: UIViewController {
           let vc = LinkTalkListViewController()
           vc.hidesBottomBarWhenPushed = true
           self?.navigationController?.pushViewController(vc, animated: true)
+      },
+      navigateToLinkTalk1: { [weak self] in
+        let vc = LinkTalkChatViewController(talk: LinkTalkPreview(
+          company: "링크팅",
+          title: "모바일 앱 개발자 (Flutter)",
+          lastMessage: "안녕하세요! 평일은 언제 가능하신가요?",
+          logo: "https://nerdinery-bucket.s3.ap-northeast-2.amazonaws.com/default/42f9490f-86bb-48a8-a689-2defc80c84cc.png"
+      ))
+        vc.hidesBottomBarWhenPushed = true
+        self?.navigationController?.pushViewController(vc, animated: true)
       }
     )
     hostingController = UIHostingController(rootView: swiftUIView)

@@ -14,6 +14,7 @@ struct LinkerFinderView: View {
     VStack(spacing: 12) {
       if true {
         InterestHeader()
+          .environmentObject(homeViewModel)
       } else {
         HStack(spacing: 20) {
           Text("아직 로그인하지 않았어요 😢")

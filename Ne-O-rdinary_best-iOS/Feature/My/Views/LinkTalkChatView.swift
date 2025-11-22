@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LinkTalkChatView: View {
     let talk: LinkTalkPreview
-    
+  @State private var isPresented = false
     @State private var messages: [ChatMessage] = [
         ChatMessage(text: "평일은 언제 가능하신가요?", isMe: false)
     ]
@@ -99,7 +99,7 @@ struct LinkTalkChatView: View {
                     .foregroundColor(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
             } else {
-                Image(talk.logo)
+                Image("User2")
                     .resizable()
                     .scaledToFill()
                     .frame(width: 40, height: 40)
@@ -165,7 +165,9 @@ struct LinkTalkChatView: View {
     
     // MARK: - 외주 시작 버튼
     private var startProjectButton: some View {
+      
         Button {
+          isPresented = true
             print("외주 시작!")
         } label: {
             Text("외주 시작하기")
@@ -179,6 +181,19 @@ struct LinkTalkChatView: View {
         }
         .transition(.move(edge: .bottom).combined(with: .opacity))
         .animation(.easeInOut(duration: 0.25), value: didReceiveReply)
+        .fullScreenCover(isPresented: $isPresented) {
+          LinkerStartDialog(
+            onClose: { isPresented = false },
+            onSendLink: {
+              print("링크톡 보내기")
+              isPresented = false
+            }
+          )
+          .ignoresSafeArea()
+        }
+        .transaction({ transaction in
+          transaction.disablesAnimations = true
+        })
     }
     
     
@@ -205,4 +220,63 @@ struct ChatMessage: Identifiable, Equatable {
     let id = UUID()
     let text: String
     let isMe: Bool
+}
+
+
+struct LinkerStartDialog: View {
+  let onClose: () -> Void
+  let onSendLink: () -> Void
+  
+  var body: some View {
+    ZStack {
+      // dim
+      Color.black.opacity(0.4)
+        .ignoresSafeArea()
+        .onTapGesture {
+          onClose()
+        }
+      
+      // dialog
+      VStack(spacing: 20) {
+        
+        Image("yellow_heart")
+        
+        VStack(spacing: 6) {
+          Text("링커팅의 멤버가 되신것을 환영합니다!")
+            .font(.pretendard(16, .medium))
+            .foregroundColor(Color(hex: "333333"))
+        }
+        
+        HStack(spacing: 12) {
+          Button(action: onClose) {
+            Text("닫기")
+              .font(.pretendard(15, .medium))
+              .frame(maxWidth: .infinity)
+              .padding(.vertical, 12)
+              .background(Color(hex: "F3F3F4"))
+              .foregroundColor(Color(hex: "333333"))
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+          }
+          
+          Button(action: onSendLink) {
+            Text("보러가기")
+              .font(.pretendard(15, .medium))
+              .frame(maxWidth: .infinity)
+              .padding(.vertical, 12)
+              .background(Color(hex: "FF6A3D"))
+              .foregroundColor(.white)
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+          }
+        }
+      }
+      .padding(26)
+      .frame(width: 310)
+      .background(.white)
+      .clipShape(RoundedRectangle(cornerRadius: 20))
+      .shadow(color: Color.black.opacity(0.15), radius: 16, x: 0, y: 6)
+      .transition(.scale.combined(with: .opacity))
+      .animation(.spring(response: 0.35, dampingFraction: 0.7), value: true)
+    }
+    .background(BackgroundBlurView())
+  }
 }
