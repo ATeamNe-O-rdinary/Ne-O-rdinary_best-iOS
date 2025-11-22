@@ -19,6 +19,19 @@ public enum UserStore {
 
     @Bucket(key: UserStoreKey.accessToken)
     static var accessToken: String?
+    
+    static func saveTokens(accessToken: String, refreshToken: String) {
+        UserStore.accessToken = accessToken
+        UserStore.refreshToken = refreshToken
+    }
+    
+    static func getAccessToken() -> String? {
+        return UserStore.accessToken
+    }
+    
+    static func getRefreshToken() -> String? {
+        return UserStore.refreshToken
+    }
 }
 private protocol AnyOptional {
     var isNil: Bool { get }

@@ -5,6 +5,13 @@
 //  Created by 지상률 on 11/22/25.
 //
 
+//
+//  LoginViewController.swift
+//  Ne-O-rdinary_best-iOS
+//
+//  Created by 지상률 on 11/22/25.
+//
+
 import Foundation
 import UIKit
 import Then
@@ -27,6 +34,7 @@ class LoginViewController: UIViewController {
     }
     
     var coordinator: LoginCoordinator?
+    private let viewModel = LoginViewModel()
     
     private let kakaoLoginButton = UIButton().then {
         $0.backgroundColor = .systemYellow
@@ -44,6 +52,38 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupConstraints()
+        setupViewModel()
+    }
+    
+    private func setupViewModel() {
+        viewModel.stateDidChange = { [weak self] state in
+            switch state {
+            case .idle:
+                break
+                
+            case .loading:
+                Logger.d("로그인 중...")
+                self?.kakaoLoginButton.isEnabled = false
+                self?.kakaoLoginButton.alpha = 0.5
+                
+            case .success(let data):
+                Logger.d("로그인 성공: \(data.username)")
+                self?.kakaoLoginButton.isEnabled = true
+                self?.kakaoLoginButton.alpha = 1.0
+                
+                if data.isNewUser {
+                    self?.coordinator?.nextToPage1()
+                } else {
+                    self?.coordinator?.finishLogin()
+                }
+                
+            case .failure(let error):
+                Logger.e("로그인 실패: \(error)")
+                self?.kakaoLoginButton.isEnabled = true
+                self?.kakaoLoginButton.alpha = 1.0
+                self?.showAlert(title: "로그인 실패", message: error)
+            }
+        }
     }
     
     @objc func kakaoLoginButtonTapped() {
@@ -92,31 +132,36 @@ extension LoginViewController {
         UserApi.shared.loginWithKakaoTalk { [weak self] oauthToken, error in
             if let error = error {
                 Logger.e("카카오톡 로그인 실패: \(error)")
-                //                  self?.showAlert(title: "로그인 실패", message: "카카오톡 로그인에 실패했습니다.")
             } else {
                 Logger.d("카카오톡 로그인 성공")
-                //                  self?.fetchUserInfo()
+                if let refreshToken = oauthToken?.refreshToken,
+                   let accessToken = oauthToken?.accessToken {
+                    UserStore.saveTokens(accessToken: accessToken, refreshToken: refreshToken)
+                    self?.viewModel.kakaoLogin()
+                }
             }
         }
     }
     
-    // MARK: - 카카오 웹 로그인
     func loginWithKakaoWeb() {
         UserApi.shared.loginWithKakaoAccount { [weak self] oauthToken, error in
             if let error = error {
                 Logger.e("카카오 웹 로그인 실패: \(error)")
-                //                  self?.showAlert(title: "로그인 실패", message: "카카오 웹 로그인에 실패했습니다.")
             } else {
                 Logger.d("카카오 웹 로그인 성공")
-                if let refreshToken = oauthToken?.refreshToken {
-                    
+
+                if let refreshToken = oauthToken?.refreshToken,
+                   let accessToken = oauthToken?.accessToken {
+                    UserStore.saveTokens(accessToken: accessToken, refreshToken: refreshToken)
+                    self?.viewModel.kakaoLogin()
                 }
-                
-                
-                Logger.d("\(oauthToken?.accessToken)")
-                Logger.d("\(oauthToken?.refreshToken)")
-                //                  self?.fetchUserInfo()
             }
         }
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
     }
 }
