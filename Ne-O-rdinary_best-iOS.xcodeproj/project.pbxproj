@@ -15,14 +15,10 @@
 		9914AE4C2ED1AF9A0003EFD8 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE4B2ED1AF9A0003EFD8 /* RxSwift */; };
 		9914AE4F2ED1AFA50003EFD8 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE4E2ED1AFA50003EFD8 /* ReactorKit */; };
 		9914AEB12ED1B1E70003EFD8 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AEB02ED1B1E70003EFD8 /* KakaoSDK */; };
-		994296A02ED21AD7001A7445 /* LinkerThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9942969F2ED21AD7001A7445 /* LinkerThirdViewController.swift */; };
-		994296A22ED21C03001A7445 /* LinkerFourthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994296A12ED21C03001A7445 /* LinkerFourthViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		897DBDD62ED1A07000457C9B /* Ne-O-rdinary_best-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ne-O-rdinary_best-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9942969F2ED21AD7001A7445 /* LinkerThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkerThirdViewController.swift; sourceTree = "<group>"; };
-		994296A12ED21C03001A7445 /* LinkerFourthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkerFourthViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -73,8 +69,6 @@
 		897DBDCD2ED1A07000457C9B = {
 			isa = PBXGroup;
 			children = (
-				9942969F2ED21AD7001A7445 /* LinkerThirdViewController.swift */,
-				994296A12ED21C03001A7445 /* LinkerFourthViewController.swift */,
 				897DBDD82ED1A07000457C9B /* Ne-O-rdinary_best-iOS */,
 				897DBDD72ED1A07000457C9B /* Products */,
 			);
@@ -178,8 +172,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				994296A22ED21C03001A7445 /* LinkerFourthViewController.swift in Sources */,
-				994296A02ED21AD7001A7445 /* LinkerThirdViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,7 +185,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L79C4PAZ9V;
+				DEVELOPMENT_TEAM = 6UDF9VNHC6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Ne-O-rdinary_best-iOS/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
@@ -221,7 +213,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L79C4PAZ9V;
+				DEVELOPMENT_TEAM = 6UDF9VNHC6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Ne-O-rdinary_best-iOS/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";

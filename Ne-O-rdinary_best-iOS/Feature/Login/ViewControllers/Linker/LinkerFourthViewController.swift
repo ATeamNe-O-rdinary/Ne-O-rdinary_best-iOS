@@ -128,7 +128,7 @@ final class LinkerFourthViewController: UIViewController {
     }
     
     @objc private func nextButtonTap() {
-        coordinator?.nextToLinkerThird()
+        coordinator?.nextToLinkerFifth()
     }
     
     @objc private func juniorViewTapped() {
