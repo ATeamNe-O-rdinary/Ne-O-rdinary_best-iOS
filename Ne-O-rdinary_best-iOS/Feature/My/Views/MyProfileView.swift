@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct MyProfileView: View {
+  @State private var showDialog = false   // 👈 추가
+  @State private var showMessageDialog = false   // 👈 추가
+  
   var body: some View {
     VStack {
       Text("링크팅")
@@ -98,6 +101,35 @@ struct MyProfileView: View {
         .background(Color.white)
       }
     }
+    .fullScreenCover(isPresented: $showDialog) {
+      LinkerDialog(
+        onClose: { showDialog = false },
+        onSendLink: {
+          print("링크톡 보내기")
+          showDialog = false
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            showMessageDialog = true
+          }
+        }
+      )
+      .ignoresSafeArea()
+    }
+    .transaction({ transaction in
+      transaction.disablesAnimations = true
+    })
+    .fullScreenCover(isPresented: $showMessageDialog) {
+      LinkerDialog2(
+        onClose: { showMessageDialog = false },
+        onSendLink: {
+          print("링크톡 보내기")
+          showMessageDialog = false
+        }
+      )
+      .ignoresSafeArea()
+    }
+    .transaction({ transaction in
+      transaction.disablesAnimations = true
+    })
   }
   
   // MARK: - 프로필 카드
@@ -216,7 +248,7 @@ struct MyProfileView: View {
         .overlay(
           // MARK: - Gradient Overlay
           Color.black.opacity(0.56)
-          .clipShape(RoundedRectangle(cornerRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         )
       
       // MARK: - Text + Buttons
@@ -244,14 +276,18 @@ struct MyProfileView: View {
           Spacer()
           
           // 받기 버튼
-          Text("받기")
-            .font(.pretendard(14, .medium))
-            .padding(.vertical, 8)
-            .padding(.horizontal, 18)
-            .frame(maxWidth: .infinity)
-            .background(.white)
-            .foregroundColor(Color(hex: "FF704D"))
-            .clipShape(RoundedRectangle(cornerRadius: 6))
+          Button {
+            showDialog = true
+          } label: {
+            Text("받기")
+              .font(.pretendard(14, .medium))
+              .padding(.vertical, 8)
+              .padding(.horizontal, 18)
+              .frame(maxWidth: .infinity)
+              .background(.white)
+              .foregroundColor(Color(hex: "FF704D"))
+              .clipShape(RoundedRectangle(cornerRadius: 6))
+          }
         }
       }
       .padding(10)
@@ -263,4 +299,128 @@ struct MyProfileView: View {
 
 #Preview {
   MyProfileView()
+}
+
+struct BackgroundBlurView: UIViewRepresentable {
+  func makeUIView(context: Context) -> UIView {
+    let view = UIView()
+    DispatchQueue.main.async {
+      view.superview?.superview?.backgroundColor = .clear
+    }
+    return view
+  }
+  
+  func updateUIView(_ uiView: UIView, context: Context) {}
+}
+
+struct LinkerDialog: View {
+  let onClose: () -> Void
+  let onSendLink: () -> Void
+  
+  var body: some View {
+    ZStack {
+      // dim
+      Color.black.opacity(0.4)
+        .ignoresSafeArea()
+        .onTapGesture {
+          onClose()
+        }
+      
+      // dialog
+      VStack(spacing: 20) {
+        
+        Text("👏")
+          .font(.system(size: 40))
+        
+        VStack(spacing: 6) {
+          Text("축하합니다, 링커님!")
+            .font(.pretendard(16, .medium))
+            .foregroundColor(Color(hex: "333333"))
+          
+          Text("링오님과 연결됐어요")
+            .font(.pretendard(16, .medium))
+            .foregroundColor(Color(hex: "333333"))
+        }
+        
+        HStack(spacing: 12) {
+          Button(action: onClose) {
+            Text("닫기")
+              .font(.pretendard(15, .medium))
+              .frame(maxWidth: .infinity)
+              .padding(.vertical, 12)
+              .background(Color(hex: "F3F3F4"))
+              .foregroundColor(Color(hex: "333333"))
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+          }
+          
+          Button(action: onSendLink) {
+            Text("링크톡 보내기")
+              .font(.pretendard(15, .medium))
+              .frame(maxWidth: .infinity)
+              .padding(.vertical, 12)
+              .background(Color(hex: "FF6A3D"))
+              .foregroundColor(.white)
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+          }
+        }
+      }
+      .padding(26)
+      .frame(width: 310)
+      .background(.white)
+      .clipShape(RoundedRectangle(cornerRadius: 20))
+      .shadow(color: Color.black.opacity(0.15), radius: 16, x: 0, y: 6)
+      .transition(.scale.combined(with: .opacity))
+      .animation(.spring(response: 0.35, dampingFraction: 0.7), value: true)
+    }
+    .background(BackgroundBlurView())
+  }
+}
+
+struct LinkerDialog2: View {
+  let onClose: () -> Void
+  let onSendLink: () -> Void
+  
+  var body: some View {
+    ZStack {
+      // dim
+      Color.black.opacity(0.4)
+        .ignoresSafeArea()
+        .onTapGesture {
+          onClose()
+        }
+      
+      // dialog
+      VStack(spacing: 20) {
+        
+        Text("🖤")
+          .font(.system(size: 40))
+        
+        VStack(spacing: 6) {
+          Text("링오에게 메시지를 보냈어요")
+            .font(.pretendard(16, .medium))
+            .foregroundColor(Color(hex: "333333"))
+        }
+        
+        HStack(spacing: 12) {
+          Button(action: onClose) {
+            Text("닫기")
+              .font(.pretendard(15, .medium))
+              .frame(maxWidth: .infinity)
+              .padding(.vertical, 12)
+              .background(Color(hex: "F3F3F4"))
+              .foregroundColor(Color(hex: "333333"))
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+          }
+        }
+      }
+      .padding(26)
+      .frame(width: 310)
+      .background(.white)
+      .clipShape(RoundedRectangle(cornerRadius: 20))
+      .shadow(color: Color.black.opacity(0.15), radius: 16, x: 0, y: 6)
+      .transition(.scale.combined(with: .opacity))
+      .animation(.spring(response: 0.35, dampingFraction: 0.7), value: true)
+    }
+    .background(BackgroundBlurView())
+  }
 }
