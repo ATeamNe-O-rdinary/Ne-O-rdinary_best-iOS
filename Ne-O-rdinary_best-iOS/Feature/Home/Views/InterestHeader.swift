@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct InterestHeader: View {
+  @State private var isPresented = false
+  
   var body: some View {
     HStack(spacing: 0) {
       // 왼쪽 카드
@@ -53,7 +55,9 @@ struct InterestHeader: View {
       Spacer()
       
       // 오른쪽 동그란 버튼
-      Button(action: {}) {
+      Button(action: {
+        isPresented = true
+      }) {
         Image(systemName: "arrow.counterclockwise")
           .font(.system(size: 18, weight: .semibold))
           .foregroundColor(Color(.darkGray))
@@ -65,6 +69,9 @@ struct InterestHeader: View {
                       radius: 4, x: 0, y: 2)
           )
       }
+    }
+    .sheet(isPresented: $isPresented) {
+      CompleteCardView()
     }
   }
 }
