@@ -25,6 +25,9 @@ extension R {
       
       @R_Image
       static var linkIcon = "link_icon"
+      
+      @R_Image
+      static var mail = "mail"
     }
 }
 
