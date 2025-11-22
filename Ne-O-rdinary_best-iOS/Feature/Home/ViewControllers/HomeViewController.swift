@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import UIKit
+import SwiftUI
 import Then
 import SnapKit
 import KakaoSDKUser
@@ -14,65 +14,33 @@ import KakaoSDKCommon
 
 class HomeViewController: UIViewController {
     
-    private let kakaoLoginButton = UIButton().then {
-        $0.setTitle("kakaoLogin", for: .normal)
-        $0.backgroundColor = .systemYellow
-        $0.setTitle("카카오 로그인", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
-        $0.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        $0.layer.cornerRadius = 8
-        $0.clipsToBounds = true
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    // Do any additional setup after loading the view.
+      self.view.backgroundColor = .red
     
+    // SwiftUI View 생성
+    let swiftUIView = HomeRootView()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // 버튼 설정
-        self.view.addSubview(kakaoLoginButton)
-        kakaoLoginButton.addTarget(self, action: #selector(kakaoLoginButtonTapped), for: .touchUpInside)
-        setUI()
-    }
+    // HostingController에 감싸기
+    let hostingController = UIHostingController(rootView: swiftUIView)
     
-    @objc func kakaoLoginButtonTapped() {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            loginWithKakaoTalk()
-        } else {
-            loginWithKakaoWeb()
-        }
-    }
+    // 현재 ViewController에 child로 추가
+    addChild(hostingController)
+    view.addSubview(hostingController.view)
     
-    func loginWithKakaoTalk() {
-        UserApi.shared.loginWithKakaoTalk { [weak self] oauthToken, error in
-            if let error = error {
-                Logger.e("카카오톡 로그인 실패: \(error)")
-                //                  self?.showAlert(title: "로그인 실패", message: "카카오톡 로그인에 실패했습니다.")
-            } else {
-                Logger.d("카카오톡 로그인 성공")
-                //                  self?.fetchUserInfo()
-            }
-        }
-    }
+    // AutoLayout 활성화
+    hostingController.view.translatesAutoresizingMaskIntoConstraints = false
     
-    // MARK: - 카카오 웹 로그인
-    func loginWithKakaoWeb() {
-        UserApi.shared.loginWithKakaoAccount { [weak self] oauthToken, error in
-            if let error = error {
-                Logger.e("카카오 웹 로그인 실패: \(error)")
-                //                  self?.showAlert(title: "로그인 실패", message: "카카오 웹 로그인에 실패했습니다.")
-            } else {
-                Logger.d("카카오 웹 로그인 성공")
-                //                  self?.fetchUserInfo()
-            }
-        }
-    }
+    // SwiftUI 화면을 전체 화면에 꽉 채우기
+    NSLayoutConstraint.activate([
+      hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
+      hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+    ])
     
-    func setUI() {
-        kakaoLoginButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
-            make.centerX.equalTo(view.safeAreaLayoutGuide)
-            make.width.equalTo(200)
-            make.height.equalTo(50)
-        }
-        
-    }
+    // child 등록 마무리
+    hostingController.didMove(toParent: self)
+  }
 }
