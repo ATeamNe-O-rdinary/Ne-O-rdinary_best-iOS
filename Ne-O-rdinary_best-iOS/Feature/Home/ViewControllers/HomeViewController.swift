@@ -66,6 +66,13 @@ class HomeViewController: UIViewController {
         for button in tabButtons {
             tabStackView.addArrangedSubview(button)
         }
+      
+      if let first = tabButtons.first {
+          for button in tabButtons {
+              button.widthAnchor.constraint(equalTo: first.widthAnchor).isActive = true
+          }
+      }
+      
         tabContainerView.addSubview(tabStackView)
         view.addSubview(tabContainerView)
         addChild(pageViewController)

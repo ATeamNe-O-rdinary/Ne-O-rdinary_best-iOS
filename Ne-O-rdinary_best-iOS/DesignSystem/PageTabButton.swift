@@ -16,7 +16,7 @@ enum PageTab {
     var name: String {
         switch self {
         case .linker:
-            return "링크"
+            return "링커 찾기"
         case .recommend:
             return "추천"
         }
