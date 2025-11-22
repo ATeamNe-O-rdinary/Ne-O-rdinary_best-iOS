@@ -7,15 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		897DC4EE2ED24ACD00457C9B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 897DC4ED2ED24ACD00457C9B /* Kingfisher */; };
-		9914AE3B2ED1AF6E0003EFD8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE3A2ED1AF6E0003EFD8 /* Alamofire */; };
-		9914AE402ED1AF750003EFD8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE3F2ED1AF750003EFD8 /* SnapKit */; };
-		9914AE452ED1AF820003EFD8 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE442ED1AF820003EFD8 /* Then */; };
-		9914AE482ED1AF9A0003EFD8 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE472ED1AF9A0003EFD8 /* RxCocoa */; };
-		9914AE4A2ED1AF9A0003EFD8 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE492ED1AF9A0003EFD8 /* RxRelay */; };
-		9914AE4C2ED1AF9A0003EFD8 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE4B2ED1AF9A0003EFD8 /* RxSwift */; };
-		9914AE4F2ED1AFA50003EFD8 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE4E2ED1AFA50003EFD8 /* ReactorKit */; };
-		9914AEB12ED1B1E70003EFD8 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AEB02ED1B1E70003EFD8 /* KakaoSDK */; };
+		993518702ED25D8400C3EFD9 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 9935186F2ED25D8400C3EFD9 /* KakaoSDK */; };
+		993518732ED25D9000C3EFD9 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 993518722ED25D9000C3EFD9 /* Then */; };
+		993518762ED25DC700C3EFD9 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 993518752ED25DC700C3EFD9 /* Kingfisher */; };
+		993518792ED25DDA00C3EFD9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 993518782ED25DDA00C3EFD9 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,15 +47,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9914AE482ED1AF9A0003EFD8 /* RxCocoa in Frameworks */,
-				9914AEB12ED1B1E70003EFD8 /* KakaoSDK in Frameworks */,
-				9914AE452ED1AF820003EFD8 /* Then in Frameworks */,
-				897DC4EE2ED24ACD00457C9B /* Kingfisher in Frameworks */,
-				9914AE4A2ED1AF9A0003EFD8 /* RxRelay in Frameworks */,
-				9914AE402ED1AF750003EFD8 /* SnapKit in Frameworks */,
-				9914AE4F2ED1AFA50003EFD8 /* ReactorKit in Frameworks */,
-				9914AE3B2ED1AF6E0003EFD8 /* Alamofire in Frameworks */,
-				9914AE4C2ED1AF9A0003EFD8 /* RxSwift in Frameworks */,
+				993518762ED25DC700C3EFD9 /* Kingfisher in Frameworks */,
+				993518792ED25DDA00C3EFD9 /* SnapKit in Frameworks */,
+				993518702ED25D8400C3EFD9 /* KakaoSDK in Frameworks */,
+				993518732ED25D9000C3EFD9 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,15 +93,10 @@
 			);
 			name = "Ne-O-rdinary_best-iOS";
 			packageProductDependencies = (
-				9914AE3A2ED1AF6E0003EFD8 /* Alamofire */,
-				9914AE3F2ED1AF750003EFD8 /* SnapKit */,
-				9914AE442ED1AF820003EFD8 /* Then */,
-				9914AE472ED1AF9A0003EFD8 /* RxCocoa */,
-				9914AE492ED1AF9A0003EFD8 /* RxRelay */,
-				9914AE4B2ED1AF9A0003EFD8 /* RxSwift */,
-				9914AE4E2ED1AFA50003EFD8 /* ReactorKit */,
-				9914AEB02ED1B1E70003EFD8 /* KakaoSDK */,
-				897DC4ED2ED24ACD00457C9B /* Kingfisher */,
+				9935186F2ED25D8400C3EFD9 /* KakaoSDK */,
+				993518722ED25D9000C3EFD9 /* Then */,
+				993518752ED25DC700C3EFD9 /* Kingfisher */,
+				993518782ED25DDA00C3EFD9 /* SnapKit */,
 			);
 			productName = "Ne-O-rdinary_best-iOS";
 			productReference = 897DBDD62ED1A07000457C9B /* Ne-O-rdinary_best-iOS.app */;
@@ -142,13 +127,10 @@
 			mainGroup = 897DBDCD2ED1A07000457C9B;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				9914AE392ED1AF6E0003EFD8 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				9914AE3E2ED1AF750003EFD8 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				9914AE432ED1AF820003EFD8 /* XCRemoteSwiftPackageReference "Then" */,
-				9914AE462ED1AF9A0003EFD8 /* XCRemoteSwiftPackageReference "RxSwift" */,
-				9914AE4D2ED1AFA50003EFD8 /* XCRemoteSwiftPackageReference "ReactorKit" */,
-				9914AEAF2ED1B1E70003EFD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
-				897DC4EC2ED24ACD00457C9B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				9935186E2ED25D8400C3EFD9 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				993518712ED25D9000C3EFD9 /* XCRemoteSwiftPackageReference "Then" */,
+				993518742ED25DC700C3EFD9 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				993518772ED25DDA00C3EFD9 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 897DBDD72ED1A07000457C9B /* Products */;
@@ -380,55 +362,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		897DC4EC2ED24ACD00457C9B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.6.2;
-			};
-		};
-		9914AE392ED1AF6E0003EFD8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.10.2;
-			};
-		};
-		9914AE3E2ED1AF750003EFD8 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.7.1;
-			};
-		};
-		9914AE432ED1AF820003EFD8 /* XCRemoteSwiftPackageReference "Then" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/devxoul/Then";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
-		9914AE462ED1AF9A0003EFD8 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.9.1;
-			};
-		};
-		9914AE4D2ED1AFA50003EFD8 /* XCRemoteSwiftPackageReference "ReactorKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactorKit/ReactorKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.2.0;
-			};
-		};
-		9914AEAF2ED1B1E70003EFD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+		9935186E2ED25D8400C3EFD9 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
 			requirement = {
@@ -436,53 +370,52 @@
 				minimumVersion = 2.26.0;
 			};
 		};
+		993518712ED25D9000C3EFD9 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		993518742ED25DC700C3EFD9 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.6.2;
+			};
+		};
+		993518772ED25DDA00C3EFD9 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		897DC4ED2ED24ACD00457C9B /* Kingfisher */ = {
+		9935186F2ED25D8400C3EFD9 /* KakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 897DC4EC2ED24ACD00457C9B /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
+			package = 9935186E2ED25D8400C3EFD9 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
 		};
-		9914AE3A2ED1AF6E0003EFD8 /* Alamofire */ = {
+		993518722ED25D9000C3EFD9 /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9914AE392ED1AF6E0003EFD8 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		9914AE3F2ED1AF750003EFD8 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9914AE3E2ED1AF750003EFD8 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		9914AE442ED1AF820003EFD8 /* Then */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9914AE432ED1AF820003EFD8 /* XCRemoteSwiftPackageReference "Then" */;
+			package = 993518712ED25D9000C3EFD9 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
 		};
-		9914AE472ED1AF9A0003EFD8 /* RxCocoa */ = {
+		993518752ED25DC700C3EFD9 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9914AE462ED1AF9A0003EFD8 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
+			package = 993518742ED25DC700C3EFD9 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
-		9914AE492ED1AF9A0003EFD8 /* RxRelay */ = {
+		993518782ED25DDA00C3EFD9 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9914AE462ED1AF9A0003EFD8 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
-		};
-		9914AE4B2ED1AF9A0003EFD8 /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9914AE462ED1AF9A0003EFD8 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
-		};
-		9914AE4E2ED1AFA50003EFD8 /* ReactorKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9914AE4D2ED1AFA50003EFD8 /* XCRemoteSwiftPackageReference "ReactorKit" */;
-			productName = ReactorKit;
-		};
-		9914AEB02ED1B1E70003EFD8 /* KakaoSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9914AEAF2ED1B1E70003EFD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDK;
+			package = 993518772ED25DDA00C3EFD9 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

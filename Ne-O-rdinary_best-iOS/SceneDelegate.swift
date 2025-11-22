@@ -20,10 +20,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = MainTabBarController()
         
-//        let navController = UINavigationController()
-//        loginCoordinator = LoginCoordinator(navigationController: navController)
-//        loginCoordinator?.delegate = self
-//        loginCoordinator?.start()
+        let navController = UINavigationController()
+        loginCoordinator = LoginCoordinator(navigationController: navController)
+        loginCoordinator?.delegate = self
+        loginCoordinator?.start()
 //        window?.rootViewController = navController
         window?.makeKeyAndVisible()
     }
@@ -69,10 +69,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 extension SceneDelegate: LoginCoordinatorDelegate {
     func loginCoordinatorDidFinish(_ coordinator: LoginCoordinator) {
-        let homeVC = HomeViewController()
-        let navController = UINavigationController(rootViewController: homeVC)
+//        UserDefaults.standard.set(true, forKey: "isLoggedIn")
+        let tabBarController = MainTabBarController()
         
-        window?.rootViewController = navController
+        window?.rootViewController = tabBarController
         UIView.transition(with: window!, duration: 0.3, options: .transitionCrossDissolve, animations: {})
     }
 }
