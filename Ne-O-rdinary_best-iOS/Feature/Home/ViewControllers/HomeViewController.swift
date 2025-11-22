@@ -69,7 +69,7 @@ class HomeViewController: UIViewController {
     func setUI() {
         kakaoLoginButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(100)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(100)
+            make.centerX.equalTo(view.safeAreaLayoutGuide)
             make.width.equalTo(200)
             make.height.equalTo(50)
         }
