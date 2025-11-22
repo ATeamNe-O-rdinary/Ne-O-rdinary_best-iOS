@@ -9,7 +9,7 @@ import SwiftUI
 struct StackCardView: View {
   @EnvironmentObject var homeViewModel: HomeViewModel
   
-  var user: User
+  var user: MemberProfile
   
   @State private var offset: CGFloat = 0
   @GestureState var isDragging: Bool = false
@@ -97,7 +97,7 @@ struct StackCardView: View {
       let rightSwipe = info["rightSwipe"] as? Bool ?? false
       let width = getRect().width - 50
       
-      if user.id == id {
+      if user.linkerId == id {
         withAnimation {
           offset = (rightSwipe ? width : -width) * 2
           endSwipeActions()
@@ -133,8 +133,8 @@ extension StackCardView {
             
             ScrollView(.horizontal, showsIndicators: false) {
               HStack(spacing: 8) {
-                ForEach(["React", "Figma", "Vue", "React", "React", "React"], id: \.self) { tag in
-                  TagChip(text: tag)
+                ForEach(user.techStacks, id: \.self) { tag in
+                  TagChip(text: tag.description)
                 }
               }
             }
@@ -259,7 +259,7 @@ extension StackCardView {
   func doSwipe(rightSwipe: Bool = false) {
     guard let first = homeViewModel.displayingUsers?.first else { return }
     NotificationCenter.default.post(name: NSNotification.Name("ACTIONFROMBUTTON"), object: nil,
-                                    userInfo: ["id": first.id, "rightSwipe": rightSwipe]
+                                    userInfo: ["id": first.linkerId, "rightSwipe": rightSwipe]
     )
   }
 }

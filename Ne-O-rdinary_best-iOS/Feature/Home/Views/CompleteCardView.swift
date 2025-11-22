@@ -18,7 +18,8 @@ struct CompleteCardView: View {
       
       GeometryReader { geo in
           FrontFace(
-            user: User(name: "", place: "", profilePic: "User1"),
+            user:
+              MemberProfile(linkerId: "1", nickname: "happy", careerLevel: .junior, workTimeType: .anytime, rateUnit: .hourly, collaborationType: .both, region: .anywhere, techStacks: [.flutter, .java, .kotlin], categoryOfBusiness: .aiDev, jobCategory: "WEB_DEV", oneLineDescription: "5년차 백엔드 개발자입니다. 대용량 트래픽 처리 경험 다수.", rateAmount: 500000, profileImage: "https://s3.ap-northeast-2.amazonaws.com/bucket/linker-profile/456.png"),
             size: CGSize(width: geo.size.width, height: geo.size.height),
             topOffset: 0
           )

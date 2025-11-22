@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct FrontFace: View {
-  let user: User
+  let user: MemberProfile
   let size: CGSize
   let topOffset: CGFloat
   
@@ -20,7 +21,10 @@ struct FrontFace: View {
         .shadow(radius: 4)
       VStack {
         ZStack(alignment: .bottom) {
-          Image(user.profilePic)
+          KFImage(URL(string: user.profileImage))
+              .placeholder {
+                  Color.gray.opacity(0.2)   // 로딩 중 placeholder
+              }
             .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(height: 228)
@@ -43,7 +47,7 @@ struct FrontFace: View {
               Text("프론트엔드 개발자 주니어")
                 .foregroundStyle(Color(hex: "f2f2f2"))
                 .font(.pretendard(12, .regular))
-              Text("이름")
+              Text(user.nickname)
                 .foregroundStyle(Color(hex: "ffffff"))
                 .font(.pretendard(18, .semibold))
             }
@@ -76,7 +80,7 @@ struct FrontFace: View {
                 .foregroundStyle(Color(hex: "777980"))
                 .font(.pretendard(14, .regular))
                 .frame(maxWidth: .infinity, alignment: .leading)
-              Text("스타트업 근무 중인 프론트엔드 개발자입니다")
+              Text(user.oneLineDescription)
                 .foregroundStyle(Color(hex: "414245"))
                 .font(.pretendard(14, .medium))
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -89,7 +93,7 @@ struct FrontFace: View {
                 Text("업무 방식")
                   .foregroundStyle(Color(hex: "777980"))
                   .font(.pretendard(14, .medium))
-                Text("풀타임 가능")
+                Text(user.collaborationType.description)
                   .foregroundStyle(Color(hex: "222222"))
                   .font(.pretendard(14, .medium))
               }
@@ -99,7 +103,7 @@ struct FrontFace: View {
                   .foregroundStyle(Color(hex: "777980"))
                   .font(.pretendard(14, .medium))
                 HStack(spacing: 2) {
-                  Text("80,000원")
+                  Text("\(user.rateAmount)원")
                     .foregroundStyle(Color(hex: "222222"))
                     .font(.pretendard(14, .medium))
                   Text("건당")
@@ -112,7 +116,7 @@ struct FrontFace: View {
                 Text("선호 지역")
                   .foregroundStyle(Color(hex: "777980"))
                   .font(.pretendard(14, .medium))
-                Text("서울")
+                Text(user.region.description)
                   .foregroundStyle(Color(hex: "222222"))
                   .font(.pretendard(14, .medium))
               }
@@ -122,8 +126,8 @@ struct FrontFace: View {
           
           ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-              ForEach(["웹 퍼블리싱", "반응형", "React", "아아아", "오오오오"], id: \.self) { tag in
-                TagChip(text: tag)
+              ForEach(user.techStacks, id: \.self) { tag in
+                TagChip(text: tag.description)
               }
             }
           }

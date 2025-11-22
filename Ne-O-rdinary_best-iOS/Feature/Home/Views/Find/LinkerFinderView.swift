@@ -62,5 +62,8 @@ struct LinkerFinderView: View {
     .padding(.horizontal, 26)
     .padding(.top, 12)
     .padding(.bottom, 40)
+    .task {
+      await homeViewModel.fetchList()
+    }
   }
 }
