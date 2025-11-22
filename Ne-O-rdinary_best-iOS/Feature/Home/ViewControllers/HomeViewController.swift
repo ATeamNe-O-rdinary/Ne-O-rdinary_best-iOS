@@ -51,6 +51,10 @@ final class HomeViewController: UIViewController {
         }
         tabButtons[0].isSelected = true
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
     
     @objc private func buttonTapped(_ sender: UIButton) {
          guard let index = tabButtons.firstIndex(of: sender as! PageTabButton) else { return }

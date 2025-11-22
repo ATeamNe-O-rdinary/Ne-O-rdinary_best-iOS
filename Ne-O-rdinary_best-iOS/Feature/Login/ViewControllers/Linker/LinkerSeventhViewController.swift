@@ -63,6 +63,7 @@ final class LinkerSeventhViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupConstraints()
+        setupActions()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,6 +101,14 @@ final class LinkerSeventhViewController: UIViewController {
             make.bottom.equalTo(nextButton.snp.top).offset(34)
         }
         
+    }
+    
+    func setupActions() {
+        nextButton.addTarget(self, action: #selector(nextButtonTap), for: .touchUpInside)
+    }
+    
+    @objc private func nextButtonTap() {
+        coordinator?.nextToLinkerLast()
     }
 }
 

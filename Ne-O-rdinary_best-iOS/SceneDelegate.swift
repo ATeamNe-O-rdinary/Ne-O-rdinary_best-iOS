@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-//        window?.rootViewController = MainTabBarController()
+        //        window?.rootViewController = MainTabBarController()
         
         let navController = UINavigationController()
         loginCoordinator = LoginCoordinator(navigationController: navController)
@@ -69,6 +69,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 extension SceneDelegate: LoginCoordinatorDelegate {
     func loginCoordinatorDidFinish(_ coordinator: LoginCoordinator) {
+        //            UserDefaults.standard.set(true, forKey: "isLoggedIn")
+        
         let homeVC = HomeViewController()
         let navController = UINavigationController(rootViewController: homeVC)
         
