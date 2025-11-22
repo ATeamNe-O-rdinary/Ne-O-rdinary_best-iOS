@@ -48,8 +48,12 @@ struct FrontFace: View {
                 .font(.pretendard(18, .semibold))
             }
             Spacer()
-            Image("link_icon")
-              .frame(width: 48, height: 48)
+            Button {
+              Logger.d("링킹!")
+            } label: {
+              Image("link_icon")
+                .frame(width: 48, height: 48)
+            }
           }
           .frame(maxWidth: .infinity)
           .padding(16)
