@@ -26,7 +26,8 @@ public final class Networking {
     method: HTTPMethod,
     parameters: Parameters? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
-    isWatch: Bool = false
+    isWatch: Bool = false,
+    headers: HTTPHeaders = .default
   ) async throws -> T {
     if !isWatch && !NetworkMonitor.shared.isConnected {
       throw NetworkError.disconected
@@ -36,7 +37,8 @@ public final class Networking {
       baseURL.appending(url),
       method: method,
       parameters: parameters,
-      encoding: encoding
+      encoding: encoding,
+      headers: headers
     )
     .validate()
     .serializingDecodable()

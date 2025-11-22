@@ -4,61 +4,54 @@ struct RecommendView: View {
   
   let categories = ["웹 제작", "앱 제작", "게임 개발", "AI", "서버 구축"]
   
-  // 샘플 데이터
-  let candidates = Array(0..<10)    // 10개 카드 예시
-  
-  // 2열 그리드 설정
-  private let columns = [
-    GridItem(.flexible(), spacing: 16),
-    GridItem(.flexible(), spacing: 16)
-  ]
+  let companies = Array(0..<10)
   
   var body: some View {
-    ScrollView {
-      VStack(alignment: .leading, spacing: 24) {
+    ScrollView(showsIndicators: false) {
+      VStack(alignment: .leading, spacing: 28) {
         
-        // 🔥 태그
+        // MARK: 카테고리 선택
         categorySection
         
-        // 🔥 섹션 타이틀
-        Text("지금 많이 찾는 지원자예요! 🔥")
-          .font(.pretendard(20, .semibold))
-          .foregroundColor(.black)
-          .padding(.horizontal, 16)
+        // MARK: 많이 찾는 기업
+        sectionTitle("지금 많이 찾는 기업이에요! 🔥")
         
-        // 🔥 2열 그리드 카드
-        LazyVGrid(columns: columns, spacing: 20) {
-          ForEach(candidates, id: \.self) { _ in
-            candidateCard
-          }
-        }
-        .padding(.horizontal, 16)
+        horizontalCompanyScroll
         
-        Spacer()
+        // MARK: 신규 기업
+        sectionTitle("신규 기업을 보여드려요 😃")
+        
+        horizontalCompanyScroll
       }
-      .padding(.top, 16)
+      .padding(.top, 12)
+      .padding(.bottom, 20)
     }
     .background(Color.white)
   }
   
-  
-  // MARK: - 카테고리 태그
+  // MARK: - 카테고리 선택
   private var categorySection: some View {
-    ScrollView(.horizontal, showsIndicators: false) {
-      HStack(spacing: 12) {
-        ForEach(categories, id: \.self) { text in
-          categoryChip(text)
+    VStack(alignment: .leading, spacing: 14) {
+      Text("카테고리 선택")
+        .font(.pretendard(16, .semibold))
+        .padding(.horizontal, 20)
+      
+      ScrollView(.horizontal, showsIndicators: false) {
+        HStack(spacing: 12) {
+          ForEach(categories, id: \.self) { text in
+            categoryChip(text)
+          }
         }
+        .padding(.horizontal, 20)
       }
-      .padding(.horizontal, 16)
     }
   }
   
   private func categoryChip(_ text: String) -> some View {
     Text(text)
       .font(.pretendard(14, .medium))
-      .padding(.vertical, 8)
-      .padding(.horizontal, 18)
+      .padding(.vertical, 6)
+      .padding(.horizontal, 16)
       .background(
         RoundedRectangle(cornerRadius: 20)
           .fill(text == "앱 제작" ? Color(hex: "FFF0E9") : Color(hex: "F5F5F5"))
@@ -67,23 +60,52 @@ struct RecommendView: View {
   }
   
   
-  // MARK: - 지원자 카드
-  private var candidateCard: some View {
+  // MARK: - 섹션 타이틀
+  private func sectionTitle(_ title: String) -> some View {
+    Text(title)
+      .font(.pretendard(18, .semibold))
+      .foregroundColor(.black)
+      .padding(.horizontal, 20)
+  }
+  
+  
+  // MARK: - 가로 스크롤 카드 리스트
+  private var horizontalCompanyScroll: some View {
+    ScrollView(.horizontal, showsIndicators: false) {
+      HStack(spacing: 14) {
+        ForEach(companies, id: \.self) { _ in
+          companyCard
+        }
+      }
+      .padding(.horizontal, 20)
+    }
+  }
+  
+  
+  // MARK: - 회사 카드 (시안 스타일 그대로)
+  private var companyCard: some View {
     VStack(alignment: .leading, spacing: 0) {
-      Image("User1")
+      
+      Image("company_img1")
         .resizable()
-        .aspectRatio(1.0, contentMode: .fill)
-        .frame(height: 140)
+        .aspectRatio(contentMode: .fill)
+        .frame(width: 150, height: 130)
         .clipShape(RoundedRectangle(cornerRadius: 12))
+        .clipped()
       
       VStack(alignment: .leading, spacing: 4) {
-        Text("프론트엔드")
-          .font(.pretendard(14, .medium))
-          .foregroundColor(Color(hex: "FF6A3D"))
+        Text("(주) 링크딩")
+          .font(.pretendard(13, .medium))
+          .foregroundColor(Color(hex: "555555"))
         
-        Text("김ㅇㅇ")
-          .font(.pretendard(18, .semibold))
+        Text("모바일 앱 개발자")
+          .font(.pretendard(16, .semibold))
           .foregroundColor(.black)
+        
+        Text("50만원")
+          .font(.pretendard(14, .semibold))
+          .foregroundColor(Color(hex: "FF6A3D"))
+          .padding(.top, 2)
       }
       .padding(12)
     }
@@ -92,6 +114,7 @@ struct RecommendView: View {
         .fill(Color.white)
         .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: 4)
     )
+    .frame(width: 150)
   }
 }
 

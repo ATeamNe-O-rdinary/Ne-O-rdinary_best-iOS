@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		897DC4EE2ED24ACD00457C9B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 897DC4ED2ED24ACD00457C9B /* Kingfisher */; };
 		9914AE3B2ED1AF6E0003EFD8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE3A2ED1AF6E0003EFD8 /* Alamofire */; };
 		9914AE402ED1AF750003EFD8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE3F2ED1AF750003EFD8 /* SnapKit */; };
 		9914AE452ED1AF820003EFD8 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 9914AE442ED1AF820003EFD8 /* Then */; };
@@ -54,6 +55,7 @@
 				9914AE482ED1AF9A0003EFD8 /* RxCocoa in Frameworks */,
 				9914AEB12ED1B1E70003EFD8 /* KakaoSDK in Frameworks */,
 				9914AE452ED1AF820003EFD8 /* Then in Frameworks */,
+				897DC4EE2ED24ACD00457C9B /* Kingfisher in Frameworks */,
 				9914AE4A2ED1AF9A0003EFD8 /* RxRelay in Frameworks */,
 				9914AE402ED1AF750003EFD8 /* SnapKit in Frameworks */,
 				9914AE4F2ED1AFA50003EFD8 /* ReactorKit in Frameworks */,
@@ -109,6 +111,7 @@
 				9914AE4B2ED1AF9A0003EFD8 /* RxSwift */,
 				9914AE4E2ED1AFA50003EFD8 /* ReactorKit */,
 				9914AEB02ED1B1E70003EFD8 /* KakaoSDK */,
+				897DC4ED2ED24ACD00457C9B /* Kingfisher */,
 			);
 			productName = "Ne-O-rdinary_best-iOS";
 			productReference = 897DBDD62ED1A07000457C9B /* Ne-O-rdinary_best-iOS.app */;
@@ -145,6 +148,7 @@
 				9914AE462ED1AF9A0003EFD8 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				9914AE4D2ED1AFA50003EFD8 /* XCRemoteSwiftPackageReference "ReactorKit" */,
 				9914AEAF2ED1B1E70003EFD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				897DC4EC2ED24ACD00457C9B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 897DBDD72ED1A07000457C9B /* Products */;
@@ -184,7 +188,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6UDF9VNHC6;
+				DEVELOPMENT_TEAM = L79C4PAZ9V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Ne-O-rdinary_best-iOS/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
@@ -212,7 +216,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6UDF9VNHC6;
+				DEVELOPMENT_TEAM = L79C4PAZ9V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Ne-O-rdinary_best-iOS/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
@@ -376,6 +380,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		897DC4EC2ED24ACD00457C9B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.6.2;
+			};
+		};
 		9914AE392ED1AF6E0003EFD8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -427,6 +439,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		897DC4ED2ED24ACD00457C9B /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 897DC4EC2ED24ACD00457C9B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		9914AE3A2ED1AF6E0003EFD8 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9914AE392ED1AF6E0003EFD8 /* XCRemoteSwiftPackageReference "Alamofire" */;
