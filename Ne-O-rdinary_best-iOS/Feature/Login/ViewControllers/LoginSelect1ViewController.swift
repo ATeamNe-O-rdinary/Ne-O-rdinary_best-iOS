@@ -5,25 +5,6 @@
 //  Created by 지상률 on 11/23/25.
 //
 
-//
-//  LoginSelect1ViewController.swift
-//  Ne-O-rdinary_best-iOS
-//
-//  Created by 지상률 on 11/23/25.
-//
-
-import Foundation
-import UIKit
-import Then
-import SnapKit
-
-//
-//  LoginSelect1ViewController.swift
-//  Ne-O-rdinary_best-iOS
-//
-//  Created by 지상률 on 11/23/25.
-//
-
 import Foundation
 import UIKit
 import Then
@@ -71,6 +52,11 @@ final class LoginSelect1ViewController: UIViewController {
         setupActions()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     func setupUI() {
         view.backgroundColor = .white
         view.addSubview(titleLabel)
@@ -83,7 +69,7 @@ final class LoginSelect1ViewController: UIViewController {
     
     func setupConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(177)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(158)
             make.leading.equalToSuperview().offset(26)
         }
         
@@ -119,5 +105,8 @@ final class LoginSelect1ViewController: UIViewController {
     @objc private func personViewTapped() {
         personView.toggleSelection(animated: true)
         companyView.setSelected(false, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [unowned self] in
+            self.coordinator?.nextToLinkerFirst()
+        }
     }
 }
