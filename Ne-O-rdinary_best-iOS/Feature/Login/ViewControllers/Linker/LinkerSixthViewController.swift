@@ -153,7 +153,7 @@ final class LinkerSixthViewController: UIViewController {
     }
     
     @objc private func nextButtonTap() {
-//        coordinator?.nextToLinkerFifth()
+        coordinator?.nextToLinkerSeventh()
     }
     
     @objc private func onlineTapped() {

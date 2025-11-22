@@ -71,6 +71,12 @@ class LoginCoordinator: NSObject, UINavigationControllerDelegate {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    func nextToLinkerSeventh() {
+        let vc = LinkerSeventhViewController()
+        vc.coordinator = self
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
     func finishLogin() {
         //        UserDefaults.standard.set(true, forKey: "isLoggedIn")
         delegate?.loginCoordinatorDidFinish(self)
