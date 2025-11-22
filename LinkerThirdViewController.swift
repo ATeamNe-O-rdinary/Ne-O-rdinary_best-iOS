@@ -80,7 +80,7 @@ final class LinkerThirdViewController: UIViewController {
     
     @objc
     func nextTo() {
-//        coordinator?.nextToLinkerSecond()
+        coordinator?.nextToLinkerFourth()
     }
     
 }
