@@ -126,6 +126,7 @@ extension StackCardView {
         ZStack(alignment: .bottom) {
           Image(user.profilePic)
             .resizable()
+            .aspectRatio(contentMode: .fill)
             .frame(height: 228)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .overlay(
@@ -298,7 +299,7 @@ extension StackCardView {
             
             VStack(alignment: .leading, spacing: 8) {
               HStack(spacing: 6) {
-                Image(systemName: "checkmark")
+                Image(R.Images.check)
                   .foregroundColor(Color(hex: "FF704D"))
                 Text("연락이 잘 돼요")
                   .foregroundColor(Color(hex: "222222"))
@@ -306,7 +307,7 @@ extension StackCardView {
               }
               
               HStack(spacing: 6) {
-                Image(systemName: "checkmark")
+                Image(R.Images.check)
                   .foregroundColor(Color(hex: "FF704D"))
                 Text("시간을 잘 지켜요")
                   .foregroundColor(Color(hex: "222222"))
@@ -327,7 +328,7 @@ extension StackCardView {
             .font(.pretendard(14, .regular))
           
           HStack {
-            Image(systemName: "link")
+            Image(R.Images.link)
               .foregroundColor(Color(hex: "FE6F53"))
             Text("C:/Users/example/Downloads...")
               .foregroundColor(Color(hex: "76797D"))
