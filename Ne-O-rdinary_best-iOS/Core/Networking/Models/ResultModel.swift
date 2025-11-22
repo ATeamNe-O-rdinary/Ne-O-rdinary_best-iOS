@@ -9,8 +9,8 @@
 import Foundation
 
 public struct ResultModel<T: Decodable>: Decodable {
-  public let isSuccess: Bool
-  public let code: String
-  public let message: String
-  public let result: T?
+    public let status: String
+    public let code: String
+    public let data: T?
+    public let message: String
 }
