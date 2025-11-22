@@ -27,7 +27,6 @@
 			membershipExceptions = (
 				Domain/dummy.swift,
 				Feature/Community/dummy.swift,
-				Feature/Home/dummy.swift,
 				Feature/Main/ViewModels/dummy.swift,
 				Feature/My/dummy.swift,
 				Info.plist,

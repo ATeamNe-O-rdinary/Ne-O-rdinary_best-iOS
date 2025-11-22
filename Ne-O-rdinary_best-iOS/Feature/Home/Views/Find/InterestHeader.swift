@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct InterestHeader: View {
+  @State private var isPresented = false
+  
   var body: some View {
     HStack(spacing: 0) {
       // 왼쪽 카드
@@ -16,16 +18,16 @@ struct InterestHeader: View {
         
         HStack(spacing: 16) {
           Text("관심 분야")
-            .font(.system(size: 14))
-            .foregroundColor(Color(.darkGray))
+            .foregroundStyle(Color(hex: "444444"))
+            .font(.pretendard(14, .medium))
           
           Divider()
             .frame(height: 16)
             .overlay(Color(.systemGray4))
           
           Text("앱 제작")
-            .font(.system(size: 14, weight: .semibold))
-            .foregroundColor(Color(red: 1.0, green: 0.35, blue: 0.2)) // 오렌지
+            .foregroundStyle(Color(hex: "FF704D"))
+            .font(.pretendard(14, .semibold))
         }
         
         Spacer()
@@ -39,10 +41,6 @@ struct InterestHeader: View {
             .background(
               RoundedRectangle(cornerRadius: 8)
                 .fill(Color.white)
-                .overlay(
-                  RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color(.systemGray4), lineWidth: 1)
-                )
             )
         }
       }
@@ -51,13 +49,15 @@ struct InterestHeader: View {
       .padding(.horizontal, 16)
       .background(
         RoundedRectangle(cornerRadius: 8)
-          .fill(Color(.systemGray6))
+          .fill(Color(hex: "F6F6F6"))
       )
       
       Spacer()
       
       // 오른쪽 동그란 버튼
-      Button(action: {}) {
+      Button(action: {
+        isPresented = true
+      }) {
         Image(systemName: "arrow.counterclockwise")
           .font(.system(size: 18, weight: .semibold))
           .foregroundColor(Color(.darkGray))
@@ -69,6 +69,9 @@ struct InterestHeader: View {
                       radius: 4, x: 0, y: 2)
           )
       }
+    }
+    .sheet(isPresented: $isPresented) {
+      CompleteCardView()
     }
   }
 }

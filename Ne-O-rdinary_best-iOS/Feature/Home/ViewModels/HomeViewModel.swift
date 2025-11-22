@@ -17,6 +17,9 @@ class HomeViewModel: ObservableObject {
       User(name: "A", place: "Vada Pav", profilePic: "User1"),
       User(name: "A", place: "Vada Pav", profilePic: "User2"),
       User(name: "A", place: "Vada Pav", profilePic: "User1"),
+      User(name: "A", place: "Vada Pav", profilePic: "User1"),
+      User(name: "A", place: "Vada Pav", profilePic: "User2"),
+      User(name: "A", place: "Vada Pav", profilePic: "User1"),
     ]
     
     displayingUsers = fetcedUsers

@@ -12,16 +12,16 @@ struct TagChip: View {
   
   var body: some View {
     Text("#\(text)")
-      .font(.system(size: 14, weight: .medium))
-      .foregroundColor(Color(.darkGray))          // 글자 색
-      .padding(.vertical, 6)
+      .font(.pretendard(14, .medium))
+      .foregroundColor(Color(hex: "666666"))          // 글자 색
+      .padding(.vertical, 8)
       .padding(.horizontal, 12)
       .background(
         Capsule()
           .fill(Color.white)                  // 안쪽 흰색
           .overlay(
             Capsule()
-              .stroke(Color(.systemGray4), lineWidth: 1) // 옅은 테두리
+              .stroke(Color(hex: "F3EFEF"), lineWidth: 1) // 옅은 테두리
           )
       )
   }
