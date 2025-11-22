@@ -102,7 +102,7 @@ class HomeViewController: UIViewController {
         // 🔥 헤더
         headerLabel.snp.makeConstraints {
           $0.top.equalToSuperview().offset(statusBarHeight + 4)  // +4는 여백
-            $0.leading.equalToSuperview().offset(16)
+            $0.leading.equalToSuperview().offset(26)
         }
         
         // 🔥 탭바 컨테이너
