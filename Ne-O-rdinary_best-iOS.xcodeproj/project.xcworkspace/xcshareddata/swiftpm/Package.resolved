@@ -1,5 +1,5 @@
 {
-  "originHash" : "e576e34d11c1cf5839e2a14f621a9ed18776c023513ef888ccf669a5e05fd93f",
+  "originHash" : "4b5ce73003deb0f0d8df9e8b88d50a8ad6caa745da6070cc3c4073abc1d2a70a",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -20,21 +20,12 @@
       }
     },
     {
-      "identity" : "reactorkit",
+      "identity" : "kingfisher",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ReactorKit/ReactorKit.git",
+      "location" : "https://github.com/onevcat/Kingfisher",
       "state" : {
-        "revision" : "8fa33f09c6f6621a2aa536d739956d53b84dd139",
-        "version" : "3.2.0"
-      }
-    },
-    {
-      "identity" : "rxswift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ReactiveX/RxSwift.git",
-      "state" : {
-        "revision" : "5004a18539bd68905c5939aa893075f578f4f03d",
-        "version" : "6.9.1"
+        "revision" : "d30a5fad881137e2267f96a8e3fc35c58999bb94",
+        "version" : "8.6.2"
       }
     },
     {
@@ -53,15 +44,6 @@
       "state" : {
         "revision" : "d41ef523faef0f911369f79c0b96815d9dbb6d7a",
         "version" : "3.0.0"
-      }
-    },
-    {
-      "identity" : "weakmaptable",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ReactorKit/WeakMapTable.git",
-      "state" : {
-        "revision" : "cb05d64cef2bbf51e85c53adee937df46540a74e",
-        "version" : "1.2.1"
       }
     }
   ],
