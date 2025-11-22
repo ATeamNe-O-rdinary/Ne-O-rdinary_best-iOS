@@ -1,4 +1,5 @@
 import SwiftUI
+import Kingfisher
 
 struct MyProfileView: View {
   @State private var showDialog = false   // 👈 추가
@@ -6,6 +7,7 @@ struct MyProfileView: View {
   let navigateToLinkedCompanies: () -> Void
   let navigateToMatchedLinkos: () -> Void
   let navigateToLinkTalk: () -> Void
+  let navigateToLinkTalk1: () -> Void
 
   var body: some View {
     ScrollView(showsIndicators: false) {
@@ -136,6 +138,7 @@ struct MyProfileView: View {
         onSendLink: {
           print("링크톡 보내기")
           showMessageDialog = false
+          navigateToLinkTalk1()
         }
       )
       .ignoresSafeArea()
@@ -230,19 +233,19 @@ struct MyProfileView: View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack(spacing: 8) {
         companyCard(
-          image: "company_img1",
+          image: "https://nerdinery-bucket.s3.ap-northeast-2.amazonaws.com/default/42f9490f-86bb-48a8-a689-2defc80c84cc.png",
           title: "IT/미디어",
-          company: "링크럽"
+          company: "링크팅"
         )
         companyCard(
-          image: "company_img2",
-          title: "뷰티/패션",
-          company: "뷰티기업"
+          image: "https://nerdinery-bucket.s3.ap-northeast-2.amazonaws.com/default/9ae7176a-269c-4d0d-8cfd-5678742854ab.png",
+          title: "IT/금융",
+          company: "토스"
         )
         companyCard(
-          image: "company_img3",
-          title: "뷰티/패션",
-          company: "뷰티기업"
+          image: "https://nerdinery-bucket.s3.ap-northeast-2.amazonaws.com/default/c448066f-a703-4638-b903-d6aa1d1adbbd.png",
+          title: "AI",
+          company: "AI 솔루션 랩"
         )
       }
       .padding(.leading, 26)
@@ -254,9 +257,9 @@ struct MyProfileView: View {
   private func companyCard(image: String, title: String, company: String) -> some View {
     ZStack(alignment: .bottomLeading) {
       // MARK: - Background Image
-      Image(image)
+      KFImage(URL(string : image))
         .resizable()
-        .aspectRatio(contentMode: .fit)
+        .aspectRatio(contentMode: .fill)
         .frame(width: 172, height: 230)
         .overlay(
           // MARK: - Gradient Overlay
@@ -401,8 +404,7 @@ struct LinkerDialog2: View {
       // dialog
       VStack(spacing: 20) {
         
-        Text("🖤")
-          .font(.system(size: 40))
+        Image("black_heart")
         
         VStack(spacing: 6) {
           Text("링오에게 메시지를 보냈어요")
@@ -418,6 +420,16 @@ struct LinkerDialog2: View {
               .padding(.vertical, 12)
               .background(Color(hex: "F3F3F4"))
               .foregroundColor(Color(hex: "333333"))
+              .clipShape(RoundedRectangle(cornerRadius: 10))
+          }
+          
+          Button(action: onSendLink) {
+            Text("보러가기")
+              .font(.pretendard(15, .medium))
+              .frame(maxWidth: .infinity)
+              .padding(.vertical, 12)
+              .background(Color(hex: "FF6A3D"))
+              .foregroundColor(.white)
               .clipShape(RoundedRectangle(cornerRadius: 10))
           }
         }

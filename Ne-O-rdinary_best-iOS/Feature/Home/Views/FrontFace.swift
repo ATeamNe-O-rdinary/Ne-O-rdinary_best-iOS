@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct FrontFace: View {
-  let user: MemberProfile
+  let user: ProjectProfile
   let size: CGSize
   let topOffset: CGFloat
   
@@ -47,7 +47,7 @@ struct FrontFace: View {
               Text("프론트엔드 개발자 주니어")
                 .foregroundStyle(Color(hex: "f2f2f2"))
                 .font(.pretendard(12, .regular))
-              Text(user.nickname)
+              Text(user.companyName)
                 .foregroundStyle(Color(hex: "ffffff"))
                 .font(.pretendard(18, .semibold))
             }
@@ -75,14 +75,18 @@ struct FrontFace: View {
         
         VStack(alignment: .leading, spacing: 20) {
           VStack(alignment: .leading, spacing: 12) {
-            VStack(alignment: .leading, spacing: 4) {
-              Text("한줄소개")
-                .foregroundStyle(Color(hex: "777980"))
-                .font(.pretendard(14, .regular))
-                .frame(maxWidth: .infinity, alignment: .leading)
-              Text(user.oneLineDescription)
-                .foregroundStyle(Color(hex: "414245"))
+            VStack(alignment: .leading, spacing: 8) {
+              Text("D-21")
+                .foregroundStyle(Color(hex: "FF704D"))
                 .font(.pretendard(14, .medium))
+                .padding(.vertical, 2)
+                .padding(.horizontal, 8)
+                .background(Color(hex: "FFE2DB"))
+                .clipShape(RoundedRectangle(cornerRadius: 4))
+              
+              Text(user.projectIntro)
+                .foregroundStyle(Color.black)
+                .font(.pretendard(16, .semibold))
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             
@@ -90,33 +94,30 @@ struct FrontFace: View {
             
             VStack(alignment: .leading, spacing: 4) {
               HStack(spacing: 12) {
-                Text("업무 방식")
+                Text("예산 범위")
                   .foregroundStyle(Color(hex: "777980"))
                   .font(.pretendard(14, .medium))
-                Text(user.collaborationType.description)
+                Text("\(user.rateAmount)만원 ~ \(user.rateAmount * 2)만원")
                   .foregroundStyle(Color(hex: "222222"))
                   .font(.pretendard(14, .medium))
               }
               
               HStack(spacing: 12) {
-                Text("희망 단가")
+                Text("예상 기간")
                   .foregroundStyle(Color(hex: "777980"))
                   .font(.pretendard(14, .medium))
                 HStack(spacing: 2) {
-                  Text("\(user.rateAmount)원")
+                  Text("\(user.expectedDuration)")
                     .foregroundStyle(Color(hex: "222222"))
                     .font(.pretendard(14, .medium))
-                  Text("건당")
-                    .foregroundStyle(Color(hex: "777980"))
-                    .font(.pretendard(13, .regular))
                 }
               }
               
               HStack(spacing: 12) {
-                Text("선호 지역")
+                Text("협업 형태")
                   .foregroundStyle(Color(hex: "777980"))
                   .font(.pretendard(14, .medium))
-                Text(user.region.description)
+                Text(user.collaborationType.description)
                   .foregroundStyle(Color(hex: "222222"))
                   .font(.pretendard(14, .medium))
               }
@@ -133,7 +134,7 @@ struct FrontFace: View {
           }
         }
         .frame(maxWidth: .infinity)
-        .padding(26)
+        .padding(EdgeInsets(top: 10, leading: 26, bottom: 26, trailing: 26))
         
         Spacer()
       }

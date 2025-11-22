@@ -6,22 +6,27 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MatchedLingosView: View {
-  
-    let lingoList: [MatchedLingo] = [
-        MatchedLingo(name: "모바일 앱 개발자 (Flutter)", company: "(주) 링커팀", logo: "company_img1"),
-        MatchedLingo(name: "프론트엔드 개발자", company: "(주) 비즈빌", logo: "company_img2"),
-        MatchedLingo(name: "백엔드 개발자", company: "(주) 비즈빌", logo: "company_img3"),
-        MatchedLingo(name: "백엔드 개발자", company: "(주) 비즈빌", logo: "company_img2"),
-        MatchedLingo(name: "백엔드 개발자", company: "(주) 비즈빌", logo: "company_img1")
-    ]
+  let matchedLingoList: [MatchedLingo] = [
+      MatchedLingo(
+          name: "모바일 앱 개발자 (iOS)",
+          company: "CMC",
+          logo: "https://nerdinery-bucket.s3.ap-northeast-2.amazonaws.com/default/42f9490f-86bb-48a8-a689-2defc80c84cc.png"
+      ),
+      MatchedLingo(name: "웹사이트 리뉴얼 프론트엔드",
+                   company: "블루웨이브소프트",
+                   logo: "https://nerdinery-bucket.s3.ap-northeast-2.amazonaws.com/default/9ae7176a-269c-4d0d-8cfd-5678742854ab.png"
+      ),
+  ]
     
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                ForEach(lingoList, id: \.id) { lingo in
+              ForEach(matchedLingoList, id: \.id) { lingo in
                     lingoRow(lingo)
+                  .padding(.vertical, 8)
                 }
             }
             .padding(.horizontal, 20)
@@ -35,7 +40,7 @@ struct MatchedLingosView: View {
     private func lingoRow(_ lingo: MatchedLingo) -> some View {
         HStack(spacing: 16) {
             
-            Image(lingo.logo)
+          KFImage(URL(string: lingo.logo))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 60, height: 60)
@@ -61,12 +66,6 @@ struct MatchedLingosView: View {
                 .background(Color(hex: "F3F3F4"))
                 .clipShape(Circle())
         }
-        .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white)
-                .shadow(color: Color.black.opacity(0.07), radius: 6, x: 0, y: 4)
-        )
     }
 }
 

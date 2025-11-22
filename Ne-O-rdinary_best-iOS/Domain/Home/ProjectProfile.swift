@@ -15,7 +15,8 @@ struct ProjectPageData: Decodable {
     let totalPages: Int
 }
 
-struct ProjectProfile: Decodable {
+struct ProjectProfile: Decodable, Identifiable {
+  var id: String { linkoId }   // ✔️ 서버의 고유값을 그대로 사용
     let linkoId: String
     let companyName: String
     let companyType: String
@@ -25,9 +26,9 @@ struct ProjectProfile: Decodable {
     let expectedDuration: String
     let rateUnit: String
     let rateAmount: Int
-    let collaborationType: String
+  let collaborationType: CollaborationType
     let region: String
     let deadline: String
-    let techStacks: [String]
+  let techStacks: [TechStack]
     let profileImage: String
 }

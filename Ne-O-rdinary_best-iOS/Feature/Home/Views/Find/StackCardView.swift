@@ -9,7 +9,7 @@ import SwiftUI
 struct StackCardView: View {
   @EnvironmentObject var homeViewModel: HomeViewModel
   
-  var user: MemberProfile
+  var user: ProjectProfile
   
   @State private var offset: CGFloat = 0
   @GestureState var isDragging: Bool = false
@@ -97,7 +97,7 @@ struct StackCardView: View {
       let rightSwipe = info["rightSwipe"] as? Bool ?? false
       let width = getRect().width - 50
       
-      if user.linkerId == id {
+      if user.linkoId == id {
         withAnimation {
           offset = (rightSwipe ? width : -width) * 2
           endSwipeActions()
@@ -125,9 +125,20 @@ extension StackCardView {
       
       VStack(alignment: .leading, spacing: 0) {
         VStack(spacing: 24) {
+          VStack(alignment: .leading, spacing: 8) {
+            Text("프로젝트 시작일")
+              .foregroundColor(Color(hex: "777980"))
+              .font(.pretendard(14, .regular))
+            
+            Text(user.deadline)
+              .foregroundColor(Color(hex: "222222"))
+              .font(.pretendard(14, .medium))
+          }
+          .frame(maxWidth: .infinity, alignment: .leading)
+          
           // MARK: - 스킬
           VStack(alignment: .leading, spacing: 8) {
-            Text("스킬")
+            Text("요구 스킬")
               .foregroundColor(Color(hex: "777980"))
               .font(.pretendard(14, .regular))
             
@@ -143,23 +154,11 @@ extension StackCardView {
           
           // MARK: - 경험
           VStack(alignment: .leading, spacing: 8) {
-            Text("경험")
+            Text("진행 했던 프로젝트")
               .foregroundColor(Color(hex: "777980"))
               .font(.pretendard(14, .regular))
             
-            Text("링크팅  /  프론트엔드  /  2025.11 ~ 재직 중")
-              .foregroundColor(Color(hex: "222222"))
-              .font(.pretendard(14, .medium))
-          }
-          .frame(maxWidth: .infinity, alignment: .leading)
-          
-          // MARK: - 선호 프로젝트 유형
-          VStack(alignment: .leading, spacing: 8) {
-            Text("선호 프로젝트 유형")
-              .foregroundColor(Color(hex: "777980"))
-              .font(.pretendard(14, .regular))
-            
-            Text("1~2개월 단기 선호")
+            Text("금융 앱 서비스 구축 / 2025.09 ~ 2025.12")
               .foregroundColor(Color(hex: "222222"))
               .font(.pretendard(14, .medium))
           }
@@ -167,7 +166,7 @@ extension StackCardView {
           
           // MARK: - 링커 PR
           VStack(alignment: .leading, spacing: 8) {
-            Text("링커 PR")
+            Text("링오 PR")
               .foregroundColor(Color(hex: "777980"))
               .font(.pretendard(14, .regular))
             
@@ -175,7 +174,7 @@ extension StackCardView {
               HStack(spacing: 6) {
                 Image(R.Images.check)
                   .foregroundColor(Color(hex: "FF704D"))
-                Text("연락이 잘 돼요")
+                Text("초보도 가능해요")
                   .foregroundColor(Color(hex: "222222"))
                   .font(.pretendard(14, .medium))
               }
@@ -197,14 +196,14 @@ extension StackCardView {
         
         // MARK: - 포트폴리오 링크
         VStack(alignment: .leading, spacing: 6) {
-          Text("포트폴리오 링크")
+          Text("기업 사이트")
             .foregroundColor(Color(hex: "777980"))
             .font(.pretendard(14, .regular))
           
           HStack {
             Image(R.Images.link)
               .foregroundColor(Color(hex: "FE6F53"))
-            Text("C:/Users/example/Downloads...")
+            Text("https://www.linkting.com")
               .foregroundColor(Color(hex: "76797D"))
               .font(.pretendard(14, .regular))
             Spacer()
@@ -259,7 +258,7 @@ extension StackCardView {
   func doSwipe(rightSwipe: Bool = false) {
     guard let first = homeViewModel.displayingUsers?.first else { return }
     NotificationCenter.default.post(name: NSNotification.Name("ACTIONFROMBUTTON"), object: nil,
-                                    userInfo: ["id": first.linkerId, "rightSwipe": rightSwipe]
+                                    userInfo: ["id": first.linkoId, "rightSwipe": rightSwipe]
     )
   }
 }

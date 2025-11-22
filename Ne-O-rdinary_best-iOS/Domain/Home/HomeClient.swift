@@ -6,54 +6,63 @@
 //
 
 
+enum LinkTingRole: String {
+    case linker = "LINKER"
+    case linko = "LINKO"
+}
+
 final class HomeClient {
-  static let shared = HomeClient()
-  private init() {}
-  
-  func fetchProfiles(
-    //       filter: ProfileFilterRequest,
-    page: Int = 0,
-    size: Int = 10,
-    type: ProfileType
-  ) async throws -> [Any] {
+    static let shared = HomeClient()
+    private init() {}
     
-    let params: [String: Any] = [
-      "categoryOfBusiness": "로고/브랜딩",
-      "minSalary": 3000,
-      "maxSalary": 8000,
-      "page": page,
-      "size": size
-    ]
     
-    switch type {
-      
-    case .project:
-      let res: ResultModel<ProjectPageData> =
-      try await Networking.shared.sendRequest(
-        "/api/members/profiles",
-        resultType: ResultModel<ProjectPageData>.self,
-        method: .get,
-        parameters: params,
-        headers: [
-            "Authorization": "Bearer \("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc2MzgzNzg1NywiZXhwIjoxNzYzODQxNDU3fQ.PNhIPmuyzYzyOLpAYRmctiuZOih4sWQssoDrzT8G3x4")"
+    func fetchProfiles(
+        type: ProfileType, // member / project
+        category: CategoryOfBusiness = .appDev,
+        rateUnit: RateUnit = .hourly,
+        rateAmount: Int = 10000,
+        role: LinkTingRole = .linker,
+        page: Int = 0,
+        size: Int = 10
+    ) async throws -> [Any] {
+        
+        let params: [String: Any] = [
+            "categoryOfBusiness": category.rawValue,
+            "rateUnit": rateUnit.rawValue,
+            "rateAmount": rateAmount,
+            "linkTingRole": role.rawValue,
+            "page": page,
+            "size": size
         ]
-      )
-      
-      return res.data?.content ?? []
-      
-    case .member:
-      let res: ResultModel<MemberPageData> =
-      try await Networking.shared.sendRequest(
-        "/api/members/profiles",
-        resultType: ResultModel<MemberPageData>.self,
-        method: .get,
-        parameters: params,
-        headers: [
-            "Authorization": "Bearer \("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc2MzgzNzg1NywiZXhwIjoxNzYzODQxNDU3fQ.PNhIPmuyzYzyOLpAYRmctiuZOih4sWQssoDrzT8G3x4")"
-        ]
-      )
-      
-      return res.data?.content ?? []
+        
+        
+        switch type {
+            
+        case .project:
+            let res: ResultModel<ProjectPageData> = try await Networking.shared.sendRequest(
+                "/api/members/profiles",
+                resultType: ResultModel<ProjectPageData>.self,
+                method: .get,
+                parameters: params,
+                headers: [
+                  "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc2Mzg1MDAzMywiZXhwIjoxNzY1MDU5NjMzfQ.QPYvEh8bfeK1G4TE_QKcYM9ueBttTzyFC7Ejpdu6ai0"
+                ]
+            )
+            
+            return res.data?.content ?? []
+            
+            
+        case .member:
+            let res: ResultModel<MemberPageData> = try await Networking.shared.sendRequest(
+                "/api/members/profiles",
+                resultType: ResultModel<MemberPageData>.self,
+                method: .get,
+                parameters: params,
+                headers: [
+                  "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc2Mzg1MDAzMywiZXhwIjoxNzY1MDU5NjMzfQ.QPYvEh8bfeK1G4TE_QKcYM9ueBttTzyFC7Ejpdu6ai0"]
+            )
+            
+            return res.data?.content ?? []
+        }
     }
-  }
 }
