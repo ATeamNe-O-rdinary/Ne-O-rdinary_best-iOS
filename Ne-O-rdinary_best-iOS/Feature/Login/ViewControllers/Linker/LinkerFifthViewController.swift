@@ -22,14 +22,14 @@ final class LinkerFifthViewController: UIViewController {
     
     private let titleLabel = UILabel().then {
         $0.text = Strings.main
-        $0.font = UIFont.pretendard(size: 24, weight: .regular)
+        $0.font = UIFont.pretendard(size: 24, weight: .semibold)
         $0.textColor = .black
         $0.numberOfLines = 2
     }
     
     private let subTitleLabel = UILabel().then {
         $0.text = Strings.sub
-        $0.font = UIFont.pretendard(size: 14, weight: .regular)
+        $0.font = UIFont.pretendard(size: 14, weight: .medium)
         $0.textColor = UIColor(hexString: "#76797D")
         $0.numberOfLines = 2
     }
@@ -60,7 +60,7 @@ final class LinkerFifthViewController: UIViewController {
         $0.backgroundColor = UIColor(hexString: "#FF704D")
         $0.setTitle("다음으로", for: .normal)
         $0.setTitleColor(.white, for: .normal)
-        $0.titleLabel?.font = UIFont.pretendard(size: 16, weight: .regular)
+        $0.titleLabel?.font = UIFont.pretendard(size: 16, weight: .medium)
         $0.layer.cornerRadius = 8
         $0.clipsToBounds = true
     }

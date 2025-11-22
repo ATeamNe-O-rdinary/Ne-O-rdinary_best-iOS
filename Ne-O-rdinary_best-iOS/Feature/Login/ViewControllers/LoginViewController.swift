@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     
     private let titleLabel = UILabel().then {
         $0.text = "링크팅에\n오신 것을 환영합니다!"
-        $0.font = UIFont.pretendard(size: 24, weight: .regular)
+        $0.font = UIFont.pretendard(size: 24, weight: .semibold)
         $0.textColor = .black
         $0.numberOfLines = 2
     }
@@ -35,6 +35,9 @@ class LoginViewController: UIViewController {
         $0.titleLabel?.font = UIFont.pretendard(size: 16, weight: .regular)
         $0.layer.cornerRadius = 8
         $0.clipsToBounds = true
+        $0.setImage(R.Images.$kakao, for: .normal)
+        $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)  // 이미지와 텍스트 간격
+        $0.contentHorizontalAlignment = .center
     }
     
     override func viewDidLoad() {
@@ -76,7 +79,7 @@ class LoginViewController: UIViewController {
         
         imageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(kakaoLoginButton.snp.top)
+            make.bottom.equalTo(kakaoLoginButton.snp.top).offset(-17)
             make.width.equalTo(170)
             make.height.equalTo(42)
         }

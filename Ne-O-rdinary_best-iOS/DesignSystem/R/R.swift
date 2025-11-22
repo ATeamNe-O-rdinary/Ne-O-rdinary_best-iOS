@@ -16,21 +16,27 @@ extension R {
     enum Images {
         @R_Image
         static var snsTipView = "sns_comment"
-      
+        
         @R_Image
         static var check = "check"
-      
-      @R_Image
-      static var link = "link1"
-      
-      @R_Image
-      static var linkIcon = "link_icon"
-      
-      @R_Image
-      static var mail = "mail"
-      
-      @R_Image
-      static var myImage = "my_image"
+        
+        @R_Image
+        static var link = "link1"
+        
+        @R_Image
+        static var linkIcon = "link_icon"
+        
+        @R_Image
+        static var mail = "mail"
+        
+        @R_Image
+        static var myImage = "my_image"
+        
+        @R_Image
+        static var kakao = "kakao"
+        
+        @R_Image
+        static var downArrow = "down_arrow"
     }
 }
 

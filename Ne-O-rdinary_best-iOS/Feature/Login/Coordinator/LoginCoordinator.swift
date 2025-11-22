@@ -12,7 +12,6 @@ protocol LoginCoordinatorDelegate: AnyObject {
     func loginCoordinatorDidFinish(_ coordinator: LoginCoordinator)
 }
 
-// MARK: - LoginCoordinator
 class LoginCoordinator: NSObject, UINavigationControllerDelegate {
     var navigationController: UINavigationController
     weak var delegate: LoginCoordinatorDelegate?

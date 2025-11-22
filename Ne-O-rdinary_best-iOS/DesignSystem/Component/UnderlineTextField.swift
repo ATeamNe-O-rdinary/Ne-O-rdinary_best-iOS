@@ -13,7 +13,7 @@ class UnderlineTextField: UIView {
     
     private let textField = UITextField().then {
         $0.borderStyle = .none
-        $0.font = UIFont.pretendard(size: 16, weight: .regular)
+        $0.font = UIFont.pretendard(size: 16, weight: .medium)
         $0.textColor = .black
     }
     
@@ -75,7 +75,7 @@ class UnderlineTextField: UIView {
     private func setupConstraints() {
         textField.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(44)
+            make.height.equalTo(43)
         }
         
         underlineView.snp.makeConstraints { make in

@@ -21,7 +21,7 @@ final class LinkerLastViewController: UIViewController {
     
     private let titleLabel = UILabel().then {
         $0.text = Strings.title
-        $0.font = UIFont.pretendard(size: 24, weight: .regular)
+        $0.font = UIFont.pretendard(size: 24, weight: .semibold)
         $0.textColor = .black
         $0.numberOfLines = 2
     }
@@ -30,7 +30,7 @@ final class LinkerLastViewController: UIViewController {
         $0.backgroundColor = UIColor(hexString: "#FF704D")
         $0.setTitle(Strings.home, for: .normal)
         $0.setTitleColor(.white, for: .normal)
-        $0.titleLabel?.font = UIFont.pretendard(size: 16, weight: .regular)
+        $0.titleLabel?.font = UIFont.pretendard(size: 16, weight: .medium)
         $0.layer.cornerRadius = 8
         $0.clipsToBounds = true
     }

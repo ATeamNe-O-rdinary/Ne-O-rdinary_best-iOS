@@ -15,7 +15,7 @@ class SelectableBorderView: UIView {
     private var isSelectedState = false
     
     private let titleLabel = UILabel().then {
-        $0.font = UIFont.pretendard(size: 16, weight: .regular)
+        $0.font = UIFont.pretendard(size: 16, weight: .medium)
         $0.textColor = .black
         $0.textAlignment = .center
     }

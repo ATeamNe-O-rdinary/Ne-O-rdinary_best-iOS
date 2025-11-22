@@ -19,7 +19,7 @@ final class LoginSelect1ViewController: UIViewController {
     
     private let titleLabel = UILabel().then {
         $0.text = "당신의\n정보를 알려주세요"
-        $0.font = UIFont.pretendard(size: 24, weight: .regular)
+        $0.font = UIFont.pretendard(size: 24, weight: .semibold)
         $0.textColor = .black
         $0.numberOfLines = 2
     }
@@ -32,13 +32,13 @@ final class LoginSelect1ViewController: UIViewController {
     }
     
     private let companyView = SelectableBorderView().then {
-        $0.borderWidth = 2
+        $0.borderWidth = 1
         $0.cornerRadius = 12
         $0.setTitle(Strings.company)
     }
     
     private let personView = SelectableBorderView().then {
-        $0.borderWidth = 2
+        $0.borderWidth = 1
         $0.cornerRadius = 12
         $0.setTitle(Strings.person)
     }
@@ -69,7 +69,7 @@ final class LoginSelect1ViewController: UIViewController {
     
     func setupConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(158)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(148)
             make.leading.equalToSuperview().offset(26)
         }
         
@@ -105,7 +105,7 @@ final class LoginSelect1ViewController: UIViewController {
     @objc private func personViewTapped() {
         personView.toggleSelection(animated: true)
         companyView.setSelected(false, animated: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [unowned self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [unowned self] in
             self.coordinator?.nextToLinkerFirst()
         }
     }

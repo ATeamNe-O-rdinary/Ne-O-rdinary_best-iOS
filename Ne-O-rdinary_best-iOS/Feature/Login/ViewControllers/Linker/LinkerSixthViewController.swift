@@ -22,7 +22,7 @@ final class LinkerSixthViewController: UIViewController {
     
     private let titleLabel = UILabel().then {
         $0.text = Strings.title
-        $0.font = UIFont.pretendard(size: 24, weight: .regular)
+        $0.font = UIFont.pretendard(size: 24, weight: .semibold)
         $0.textColor = .black
         $0.numberOfLines = 2
     }
@@ -35,19 +35,19 @@ final class LinkerSixthViewController: UIViewController {
     }
     
     private let onlineView = SelectableBorderView().then {
-        $0.borderWidth = 2
+        $0.borderWidth = 1
         $0.cornerRadius = 12
         $0.setTitle(Strings.online)
     }
     
     private let offlineView = SelectableBorderView().then {
-        $0.borderWidth = 2
+        $0.borderWidth = 1
         $0.cornerRadius = 12
         $0.setTitle(Strings.offline)
     }
     
     private let dropView = CustomDropdown().then {
-        $0.placeholder = "구분"
+        $0.placeholder = "지역"
         let regions: [String] = [
             "서울",
             "경기",

@@ -14,9 +14,11 @@ class CustomDropdown: UIView {
     private let button = UIButton().then {
         $0.backgroundColor = .white
         $0.setTitleColor(UIColor(hexString: "#777980"), for: .normal)
-        $0.titleLabel?.font = UIFont.pretendard(size: 16, weight: .regular)
-        $0.contentHorizontalAlignment = .left
-        $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+        $0.titleLabel?.font = UIFont.pretendard(size: 16, weight: .medium)
+    }
+    
+    private let underlineView = UIView().then {
+        $0.backgroundColor = UIColor(hexString: "#EAECEE")
     }
     
     private let tableView = UITableView().then {
@@ -26,6 +28,7 @@ class CustomDropdown: UIView {
         $0.isHidden = true
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor(hexString: "#EAECEE").cgColor
+        $0.separatorStyle = .none
     }
     
     private var dropdownWindow: UIWindow?
@@ -45,6 +48,13 @@ class CustomDropdown: UIView {
             }
         }
     }
+    
+    var inactiveLineColor: UIColor = UIColor(hexString: "#EAECEE") {
+        didSet {
+            underlineView.backgroundColor = inactiveLineColor
+        }
+    }
+    
     var activeLineColor: UIColor = UIColor(hexString: "#FF704D")
     
     // MARK: - Init
@@ -63,7 +73,13 @@ class CustomDropdown: UIView {
     // MARK: - Setup
     private func setupUI() {
         addSubview(button)
-        
+//        addSubview(underlineView)
+        var config = UIButton.Configuration.plain()
+        config.title = "구분"
+        config.image = R.Images.$downArrow
+        config.imagePadding = 8
+        config.imagePlacement = .trailing
+        button.configuration = config
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         
         // TableView 설정
@@ -76,8 +92,14 @@ class CustomDropdown: UIView {
     private func setupConstraints() {
         button.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(44)
+            make.height.equalTo(43)
         }
+        
+//        underlineView.snp.makeConstraints { make in
+//            make.top.equalTo(button.snp.bottom).offset(8)
+//            make.leading.trailing.bottom.equalToSuperview()
+//            make.height.equalTo(1)
+//        }
     }
     
     // MARK: - Actions
@@ -91,8 +113,6 @@ class CustomDropdown: UIView {
     
     private func showDropdown() {
         tableView.isHidden = false
-        
-        // TableView를 window에 추가
         if let window = UIApplication.shared.connectedScenes
             .compactMap({ $0 as? UIWindowScene })
             .first?.windows
@@ -113,17 +133,19 @@ class CustomDropdown: UIView {
             window.bringSubviewToFront(tableView)
         }
         
-        updateUnderlineColor(isActive: true)
+//        updateUnderlineColor(isActive: true)
     }
     
     private func hideDropdown() {
         tableView.isHidden = true
         tableView.removeFromSuperview()
-        updateUnderlineColor(isActive: false)
+        underlineView.isHidden = false
+//        updateUnderlineColor(isActive: false)
     }
     
     private func updateUnderlineColor(isActive: Bool = false) {
         UIView.animate(withDuration: 0.2) {
+            self.underlineView.backgroundColor = isActive ? self.activeLineColor : self.inactiveLineColor
         }
     }
     
@@ -147,7 +169,17 @@ extension CustomDropdown: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownCell", for: indexPath)
         cell.textLabel?.text = items[indexPath.row]
-        cell.textLabel?.font = UIFont.pretendard(size: 16, weight: .regular)
+        cell.textLabel?.font = UIFont.pretendard(size: 16, weight: .medium)
+        cell.backgroundColor = .white
+        
+        // 구분선 추가
+        let separator = UIView()
+        separator.backgroundColor = UIColor(hexString: "#EAECEE")
+        cell.addSubview(separator)
+        separator.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(1)
+        }
         
         if items[indexPath.row] == selectedItem {
             cell.textLabel?.textColor = UIColor(hexString: "#FF704D")
