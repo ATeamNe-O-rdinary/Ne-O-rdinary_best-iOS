@@ -11,20 +11,17 @@ import Then
 import SnapKit
 
 class HomeViewController: UIViewController {
-  private var statusBarHeight: CGFloat {
-      UIApplication.shared.connectedScenes
-          .compactMap { $0 as? UIWindowScene }
-          .first?
-          .statusBarManager?
-          .statusBarFrame.height ?? 0
-  }
-  
-    // MARK: - UI Components
+    private var statusBarHeight: CGFloat {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?
+            .statusBarManager?
+            .statusBarFrame.height ?? 0
+    }
     
-    /// 🔥 상단 제목 “링크팅”
     private let headerLabel = UILabel().then {
         $0.text = "링크팅"
-      $0.font = .pretendard(size: 16, weight: .semibold)
+        $0.font = .pretendard(size: 16, weight: .semibold)
         $0.textColor = .black
     }
     
@@ -85,16 +82,6 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
     
-    @objc private func buttonTapped(_ sender: UIButton) {
-         guard let index = tabButtons.firstIndex(of: sender as! PageTabButton) else { return }
-         
-         tabButtons.forEach { $0.isSelected = false }
-         tabButtons[index].isSelected = true
-         
-         let direction: UIPageViewController.NavigationDirection = index > 0 ? .forward : .reverse
-         pageViewController.setViewControllers([viewControllers[index]], direction: direction, animated: true)
-     }
-    
     private func setupUI() {
         view.backgroundColor = .white
         
@@ -117,14 +104,11 @@ class HomeViewController: UIViewController {
     
     // MARK: - Constraints
     private func setupConstraints() {
-        
-        // 🔥 헤더
         headerLabel.snp.makeConstraints {
-          $0.top.equalToSuperview().offset(statusBarHeight + 4)  // +4는 여백
+            $0.top.equalToSuperview().offset(statusBarHeight + 4)  // +4는 여백
             $0.leading.equalToSuperview().offset(26)
         }
         
-        // 🔥 탭바 컨테이너
         tabContainerView.snp.makeConstraints {
             $0.top.equalTo(headerLabel.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview()
@@ -135,21 +119,16 @@ class HomeViewController: UIViewController {
             $0.edges.equalToSuperview()
         }
         
-        // 🔥 PageView 위치
         pageViewController.view.snp.makeConstraints {
             $0.top.equalTo(tabContainerView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
     
-    
-    // MARK: - Tab Logic
     private func setupTabs() {
         for button in tabButtons {
             button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         }
-        
-        // 첫 페이지 로딩
         if let firstVC = viewControllers.first {
             pageViewController.setViewControllers([firstVC], direction: .forward, animated: false)
         }
