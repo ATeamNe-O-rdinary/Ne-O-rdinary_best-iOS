@@ -9,10 +9,11 @@ import SwiftUI
 
 struct LinkerFinderView: View {
   @StateObject var homeViewModel: HomeViewModel = HomeViewModel()
-  
+    let navigateToLinkedCompanies: () -> Void
+    
   var body: some View {
     VStack(spacing: 12) {
-      if true {
+        if UserStore.getLogIn() ?? false {
         InterestHeader()
           .environmentObject(homeViewModel)
       } else {
@@ -21,7 +22,9 @@ struct LinkerFinderView: View {
             .foregroundStyle(Color(hex: "76797D"))
             .font(.pretendard(14, .medium))
           Spacer()
-          Button(action: {}) {
+          Button(action: {
+              navigateToLinkedCompanies()
+          }) {
             Text("로그인 하기")
               .font(.pretendard(13, .medium))
               .foregroundStyle(Color(hex: "76797D"))

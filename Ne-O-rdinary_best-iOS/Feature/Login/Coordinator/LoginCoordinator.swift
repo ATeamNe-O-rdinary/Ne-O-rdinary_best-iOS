@@ -1,10 +1,3 @@
-//
-//  LoginCoordinator.swift
-//  Ne-O-rdinary_best-iOS
-//
-//  Created by 지상률 on 11/22/25.
-//
-
 import Foundation
 import UIKit
 
@@ -83,7 +76,8 @@ class LoginCoordinator: NSObject, UINavigationControllerDelegate {
     }
     
     func finishLogin() {
-        //        UserDefaults.standard.set(true, forKey: "isLoggedIn")
+        Logger.d("로그인 완료!")
         delegate?.loginCoordinatorDidFinish(self)
+        NotificationCenter.default.post(name: NSNotification.Name("LoginDidFinish"), object: nil)
     }
 }

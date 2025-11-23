@@ -13,19 +13,41 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var loginCoordinator: LoginCoordinator?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = MainTabBarController()
         
-        let navController = UINavigationController()
-        loginCoordinator = LoginCoordinator(navigationController: navController)
-        loginCoordinator?.delegate = self
-        loginCoordinator?.start()
-//        window?.rootViewController = navController
+        setupNotificationObservers()
+        
+        window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
+    }
+    
+    private func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(presentLoginFlow(_:)),
+            name: NSNotification.Name("PresentLoginFlow"),
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(loginDidFinish),
+            name: NSNotification.Name("LoginDidFinish"),
+            object: nil
+        )
+    }
+    
+    @objc private func presentLoginFlow(_ notification: NSNotification) {
+        guard let navController = notification.object as? UINavigationController else { return }
+        window?.rootViewController = navController
+        UIView.transition(with: window!, duration: 0.3, options: .transitionCrossDissolve, animations: {})
+    }
+    
+    @objc private func loginDidFinish() {
+        let tabBarController = MainTabBarController()
+        window?.rootViewController = tabBarController
+        UIView.transition(with: window!, duration: 0.3, options: .transitionCrossDissolve, animations: {})
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -64,7 +86,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
     
-    
+    private func tokenCheck() {
+        let accessToken = UserStore.getAccessToken()
+        let refreshToken = UserStore.getRefreshToken()
+        
+        guard let accessToken,
+              let refreshToken,
+              !accessToken.isEmpty,
+              !refreshToken.isEmpty else {
+            UserStore.setLogIn(false)
+            return
+        }
+        UserStore.setLogIn(true)
+    }
 }
 
 extension SceneDelegate: LoginCoordinatorDelegate {
@@ -76,3 +110,4 @@ extension SceneDelegate: LoginCoordinatorDelegate {
         UIView.transition(with: window!, duration: 0.3, options: .transitionCrossDissolve, animations: {})
     }
 }
+

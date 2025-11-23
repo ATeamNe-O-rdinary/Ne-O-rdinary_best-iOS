@@ -67,8 +67,7 @@ class LoginViewController: UIViewController {
                 if data.isNewUser {
                     self?.coordinator?.nextToPage1()
                 } else {
-//                    self?.coordinator?.finishLogin()
-                    self?.coordinator?.nextToPage1()
+                    self?.coordinator?.finishLogin()
                 }
                 
             case .failure(let error):

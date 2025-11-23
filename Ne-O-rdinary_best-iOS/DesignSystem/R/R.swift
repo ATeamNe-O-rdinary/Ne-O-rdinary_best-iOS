@@ -37,15 +37,18 @@ extension R {
         
         @R_Image
         static var downArrow = "down_arrow"
-      
-      @R_Image
-      static var linkCompany = "link_company"
-      
-      @R_Image
-      static var linkTalk = "link_talk"
-      
-      @R_Image
-      static var linko = "linko"
+        
+        @R_Image
+        static var linkCompany = "link_company"
+        
+        @R_Image
+        static var linkTalk = "link_talk"
+        
+        @R_Image
+        static var linko = "linko"
+        
+        @R_Image
+        static var cardImage = "cardImage"
     }
 }
 

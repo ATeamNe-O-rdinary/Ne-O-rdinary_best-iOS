@@ -26,6 +26,11 @@ final class LinkerLastViewController: UIViewController {
         $0.numberOfLines = 2
     }
     
+    private let imageView = UIImageView().then {
+        $0.image = R.Images.$cardImage
+         $0.contentMode = .scaleAspectFit
+     }
+    
     private let nextButton = UIButton().then {
         $0.backgroundColor = UIColor(hexString: "#FF704D")
         $0.setTitle(Strings.home, for: .normal)
@@ -45,6 +50,7 @@ final class LinkerLastViewController: UIViewController {
     func setupUI() {
         view.backgroundColor = .white
         view.addSubview(titleLabel)
+        view.addSubview(imageView)
         view.addSubview(nextButton)
     }
     
@@ -52,6 +58,13 @@ final class LinkerLastViewController: UIViewController {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(158)
             make.leading.equalToSuperview().offset(26)
+        }
+        
+        imageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(40)
+            make.width.equalTo(323)
+            make.height.equalTo(424)
         }
         
         nextButton.snp.makeConstraints { make in

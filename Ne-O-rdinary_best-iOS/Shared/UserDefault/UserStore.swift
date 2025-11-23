@@ -11,6 +11,7 @@ import UIKit
 private enum UserStoreKey: String {
     case refreshToken = "USER_REFRESH_TOKEN_KEY"
     case accessToken = "USER_ACCESS_TOKEN_KEY"
+    case isLogIn = "IS_LOG_IN"
 }
 
 public enum UserStore {
@@ -19,6 +20,9 @@ public enum UserStore {
 
     @Bucket(key: UserStoreKey.accessToken)
     static var accessToken: String?
+    
+    @Bucket(key: UserStoreKey.isLogIn)
+    static var isLogIn: Bool?
     
     static func saveTokens(accessToken: String, refreshToken: String) {
         UserStore.accessToken = accessToken
@@ -31,6 +35,14 @@ public enum UserStore {
     
     static func getRefreshToken() -> String? {
         return UserStore.refreshToken
+    }
+    
+    static func setLogIn(_ result: Bool){
+        UserStore.isLogIn = result
+    }
+    
+    static func getLogIn() -> Bool? {
+        return UserStore.isLogIn
     }
 }
 private protocol AnyOptional {
