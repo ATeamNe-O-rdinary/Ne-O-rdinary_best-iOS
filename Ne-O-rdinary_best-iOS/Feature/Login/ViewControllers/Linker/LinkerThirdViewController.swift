@@ -48,7 +48,15 @@ final class LinkerThirdViewController: UIViewController {
         setupConstraints()
         setupActions()
         setupTextFieldObserver()
+      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+      tapGesture.cancelsTouchesInView = false
+      view.addGestureRecognizer(tapGesture)
     }
+    
+  @objc
+  private func dismissKeyboard() {
+      view.endEditing(true)
+  }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
