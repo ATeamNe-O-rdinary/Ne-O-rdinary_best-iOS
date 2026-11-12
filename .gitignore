@@ -110,3 +110,5 @@ xcuserdata
 
 Tuist/ProjectDescriptionHelpers/Utils/AppEnvironment.swift
 *.p8
+# macOS
+.DS_Store
